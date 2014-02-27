@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Image Processor by speranskydanil</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Image Processor</h1>
+        <p>It is a simple rails application for processing image collections.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/speranskydanil/image-processor" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/speranskydanil/image-processor/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/speranskydanil/image-processor/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a name="image-processor" class="anchor" href="#image-processor"><span class="octicon octicon-link"></span></a>Image Processor</h1>
+
+<p>It is a simple rails application for processing image collections.</p>
+
+<h3>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li>authorization, managing users</li>
+<li>creating hierarchy of nodes (like directories) with names, descriptions, statuses</li>
+<li>uploading images</li>
+<li>ordering images</li>
+<li>inserting, duplicating</li>
+<li>rotating and cropping</li>
+<li>canceling changes</li>
+<li>nice interface for viewing and processing image collections</li>
+</ul><h3>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+
+<ul>
+<li>MySQL</li>
+<li>ImageMagick</li>
+</ul><h3>
+<a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick Start</h3>
+
+<ul>
+<li>git clone <a href="mailto:git@github.com">git@github.com</a>:speranskydanil/image-processor.git</li>
+<li>cp config/database.example.yml config/database.yml; vim config/database.yml</li>
+<li>bin/rebuild -e p</li>
+<li>rails server</li>
+</ul><p>Default login and password (seeds.rb): <a href="mailto:name@company.com">name@company.com</a> passwordexample</p>
+
+<h3>
+<a name="rebuilding" class="anchor" href="#rebuilding"><span class="octicon octicon-link"></span></a>Rebuilding</h3>
+
+<pre><code>bin/rebuild -h
+
+Usage: bin/rebuild [options]
+
+-f, --flags F        Flags for the rebuild script (by default all of them)
+                     l - rm -R log/*
+                     a - rm -R public/assets/*
+                     i - mkdir public/system; cd public/system; ls | grep -v paperclip_attachments.yml | xargs rm -R
+                     d - bundle exec rake db:drop
+                     c - bundle exec rake db:create
+                     m - bundle exec rake db:migrate
+                     s - bundle exec rake db:seed
+                     p - rm -R public/assets/*; bundle exec rake assets:precompile
+                     j - bin/delayed_job restart
+                     Example: dcms
+
+-e, --except E       Except flags for the rebuild script
+                     See documentation for --flags
+</code></pre>
+
+<h3>
+<a name="updating" class="anchor" href="#updating"><span class="octicon octicon-link"></span></a>Updating</h3>
+
+<pre><code>bin/update -h
+
+Usage: bin/update [options]
+
+-f, --flags F        Flags for the update script (by default all of them)
+                     l - rm -R log/*
+                     a - rm -R public/assets/*
+                     g - git pull
+                     b - bundle install
+                     m - bundle exec rake db:migrate
+                     p - rm -R public/assets/*; bundle exec rake assets:precompile
+                     j - bin/delayed_job restart
+                     Example: gm
+
+-e, --except E       Except flags for the update script
+                     See documentation for --flags
+</code></pre>
+
+<h3>
+<a name="add-test-data" class="anchor" href="#add-test-data"><span class="octicon octicon-link"></span></a>Add Test Data</h3>
+
+<pre><code>rake atd[path] # where path -- path to a directory with images
+</code></pre>
+
+<h3>
+<a name="screens" class="anchor" href="#screens"><span class="octicon octicon-link"></span></a>Screens</h3>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/1.png" alt="screen"></p>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/2.png" alt="screen"></p>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/3.png" alt="screen"></p>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/4.png" alt="screen"></p>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/5.png" alt="screen"></p>
+
+<p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/6.png" alt="screen"></p>
+
+<p><strong>Author (Speransky Danil):</strong>
+<a href="http://dsperansky.info">Personal Page</a> |
+<a href="http://ru.linkedin.com/in/speranskydanil/en">LinkedIn</a> |
+<a href="https://github.com/speranskydanil?tab=repositories">GitHub</a> |
+<a href="http://stackoverflow.com/users/1550807/speransky-danil">StackOverflow</a></p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/speranskydanil">speranskydanil</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
