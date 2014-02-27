@@ -1,0 +1,15 @@
+- content_for :title, title(t('users.users'), t('users.new'))
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb link_to t('users.users'), users_path
+  - add_crumb t('users.new')
+
+  = get_crumbs
+
+%h2= t('users.new')
+
+= render 'form', url: create_by_admin_users_path(@user)
+
+= btn_to t('back'), users_path
+

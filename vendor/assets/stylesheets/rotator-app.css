@@ -1,0 +1,63 @@
+.rotator-app-toolbar {
+  margin: 10px 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  color: #777;
+}
+
+.rotator-app-controller {
+  float: left;
+  margin-right: 10px;
+}
+
+.rotator-app-toolbar .rotator-app-angle {
+  width: 40px;
+  height: 20px;
+  margin: 0px 5px;
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 16px;
+  color: #777;
+  outline: none;
+  vertical-align: middle;
+
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.rotator-app-rotate-btn {
+  color: #0088cc;
+  text-decoration: none;
+  outline: none;
+}
+
+.rotator-app-rotate-btn:hover {
+  color: #005580;
+}
+
+.rotator-app-minus,
+.rotator-app-plus {
+  margin: 0px !important;
+  outline: none;
+}
+
+.rotator-app-minus span,
+.rotator-app-plus span {
+  padding: 0px 4px !important;
+  line-height: 20px !important;
+  color: #777;
+}
+
+.rotator-app-slider {
+  float: left;
+  width: 800px;
+  margin-top: 5px;
+}
+
+.rotator-app-slider a {
+  outline:none;
+}
+

@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+flags = 'lagbmpj'.split('')
+except = []
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/update [options]\n\n"
+
+  opts.on('-f F', '--flags F', 'Flags for the update script (by default all of them)',
+                               'l - rm -R log/*',
+                               'a - rm -R public/assets/*',
+                               'g - git pull',
+                               'b - bundle install',
+                               'm - bundle exec rake db:migrate',
+                               'p - rm -R public/assets/*; bundle exec rake assets:precompile',
+                               'j - script/delayed_job restart',
+                               "Example: gm\n\n") do |f|
+    flags = f.split('')
+  end
+
+  opts.on('-e E', '--except E', 'Except flags for the update script',
+                                "See documentation for --flags\n\n") do |e|
+    except = e.split('')
+  end
+end.parse!
+
+flags -= except
+
+cmds = {
+  'l' => 'rm -R log/*',
+  'a' => 'rm -R public/assets/*',
+  'g' => 'git pull',
+  'b' => 'bundle install',
+  'm' => 'bundle exec rake db:migrate',
+  'p' => 'rm -R public/assets/*; bundle exec rake assets:precompile',
+  'j' => 'script/delayed_job restart',
+}
+
+cmds.each do |flag, cmd|
+  next unless flags.include? flag
+
+  puts "STARTED `#{cmd}` \n\n"
+  t = Time.now
+  puts `#{cmd}`
+  puts "COMPLETED IN #{ '%.2f' % (Time.now - t) } SECONDS `#{cmd}` \n\n"
+end
+

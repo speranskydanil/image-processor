@@ -1,0 +1,17 @@
+*.swp
+*~
+
+.rvmrc
+
+/.bundle
+/vendor/bundle
+
+/config/database.yml
+/config/unicorn.rb
+
+/log/*
+/tmp/*
+
+/public/assets/*
+/public/system/*
+

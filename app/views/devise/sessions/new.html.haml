@@ -1,0 +1,36 @@
+- content_for :title, t('devise.views.sign_in')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('devise.views.sign_in')
+
+  = get_crumbs
+
+%h2= t('devise.views.sign_in')
+
+= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' } ) do |f|
+  .form-group
+    = f.label t('devise.views.email'), class: 'control-label col-md-2'
+    .col-md-10
+      = f.email_field :email, autofocus: true, class: 'form-control md'
+
+  .form-group
+    = f.label t('devise.views.password'), class: 'control-label col-md-2'
+    .col-md-10
+      = f.password_field :password, class: 'form-control md'
+
+  - if devise_mapping.rememberable?
+    .form-group
+      .col-md-offset-2.col-md-10
+        %label.checkbox-inline
+          = f.check_box :remember_me
+          = t('devise.views.remember_me')
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = recaptcha_tags display: { theme: 'clean' }
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit t('devise.views.sign_in'), class: 'btn btn-default'
+

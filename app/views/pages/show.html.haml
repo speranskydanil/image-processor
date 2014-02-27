@@ -1,0 +1,50 @@
+- content_for :title, title(@node.name, @page.title)
+
+- content_for :crumbs do
+  - add_crumbs_for_node @node
+  - add_crumb @page.title
+
+  = get_crumbs
+
+%h2= @page.title
+
+- if @page.free?
+  .pages-show
+    .image
+      = image_tag @page.image.url(:large)
+
+    .actions
+      = render 'nav', page: @page
+
+      %h4= t('pages.actions')
+
+      = link_to t('pages.view_in_high_resolution'), @page.image.url(:original), target: '_blank'
+      %br
+      = link_to t('pages.view_raw'), @page.raw.url(:original), target: '_blank'
+      %br
+      = link_to t('pages.process.title'), process_form_page_path(@page)
+      %br
+      = link_to t('pages.cancel'), cancel_page_path(@page), method: :put
+      %br
+      = link_to t('pages.duplicate'), duplicate_page_path(@page), method: :put
+      %br
+      = link_to t('destroy'), @page, confirm: t('are_you_sure'), method: :delete
+      %br
+
+      = form_tag insert_page_path, multipart: true do
+        %br
+        %b= t('pages.insert')
+        %br
+
+        = hidden_field_tag :id, @page.id
+
+        .form-group
+          = file_field_tag :image
+
+        = submit_tag t('submit'), class: 'btn btn-default'
+
+    .clear
+- else
+  %p.alert= t('pages.page_is_in_processing')
+  = render 'nav', page: @page
+

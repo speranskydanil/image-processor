@@ -1,0 +1,9 @@
+ru:
+  kaminari:
+    first: "&laquo;"
+    last: "&raquo;"
+    previous: "&lsaquo;"
+    next: "&rsaquo;"
+    truncate: "..."
+    per_page: 'записей на странице'
+

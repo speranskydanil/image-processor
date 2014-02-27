@@ -1,0 +1,34 @@
+.metadata
+  = link_to '', class: 'expander' do
+    %i(class="icon-chevron-#{cookies['expander'] == 'hide' ? 'right' : 'down'}")
+    = t('nodes.expander')
+
+  .wrapper{ style: ('display: none' if cookies['expander'] == 'hide') }
+    - unless node.pages.empty?
+      = image_tag(node.pages.first.image.url(:x_small))
+
+    %table
+      %tbody
+        %tr
+          %td.first= t('nodes.name')
+          %td= node.name
+
+        %tr.not-first
+          %td.first= t('nodes.description')
+          %td= node.description
+
+        %tr.not-first
+          %td.first= t('nodes.status')
+          %td= node.status.name
+
+        %tr.not-first
+          %td.first= t('nodes.created_at')
+          %td= node.created_at
+
+        - unless node.pages.empty?
+          %tr.not-first
+            %td.first= t('nodes.pages_count')
+            %td= node.pages.count
+
+    .clear
+

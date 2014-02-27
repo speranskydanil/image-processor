@@ -1,0 +1,12 @@
+- content_for :title, title(t('nodes.nodes'), @node.name, t('nodes.edit'))
+
+- content_for :crumbs do
+  - add_crumbs_for_node @node
+  - add_crumb t('nodes.edit')
+
+  = get_crumbs
+
+%h2= t('nodes.edit')
+
+= render 'form'
+

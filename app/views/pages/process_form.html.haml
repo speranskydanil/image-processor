@@ -1,0 +1,113 @@
+- content_for :title, title(@node.name, @page.title, t('pages.process.title'))
+
+- content_for :crumbs do
+  - add_crumbs_for_node @node
+  - add_crumb link_to @page.title, @page
+  - add_crumb t('pages.process.title')
+
+  = get_crumbs
+
+%h2 #{@page.title} - #{t('pages.process.title')}
+
+- if @page.free?
+  = form_tag process_act_page_path(@page), method: :put do
+    = hidden_field_tag 'process_data[angle]'
+    = hidden_field_tag 'process_data[x1]'
+    = hidden_field_tag 'process_data[y1]'
+    = hidden_field_tag 'process_data[x2]'
+    = hidden_field_tag 'process_data[y2]'
+
+    .process-toolbar
+      .common
+        .fullscreen.btn.btn-default.btn-sm= t('pages.process.fullscreen')
+        .grid.btn.btn-default.btn-sm= t('pages.process.grid')
+
+        .divider
+
+        = render 'nav', page: @page, action: 'process_form'
+
+        .divider
+
+        = submit_tag t('pages.process.save'), class: 'btn btn-default btn-sm'
+
+        .divider
+
+        %label.checkbox-inline
+          = check_box_tag :apply_to_prev
+          = t('pages.process.apply_to_prev')
+
+        %label.checkbox-inline
+          = check_box_tag :apply_to_next
+          = t('pages.process.apply_to_next')
+
+      .rotator
+
+    .process-area
+
+  = content_for :javascript do
+    :coffee
+      $(document).ready ->
+        $('form').keydown (e) ->
+          if e.which == 13
+            e.preventDefault()
+            false
+
+        rotator_app = new RotatorApp
+          container: $('.process-area')
+          toolbar: $('.process-toolbar .rotator')
+
+          src: '#{ @page.image.url(:large) }'
+          angle: #{ @page.angle || 0 }
+
+          grid:
+            visibility: true
+            width: 1
+            color: '#222'
+            step: 40
+
+          load: (rotator) ->
+            #{"start_select = [#{@page.x1}, #{@page.y1}, #{@page.x2}, #{@page.y2}]" if @page.x1}
+
+            if not start_select
+              size = rotator.size
+
+              indent_w = (size - rotator.width) / 2
+              indent_h = (size - rotator.height) / 2
+
+              start_select = [indent_w, indent_h, size - indent_w, size - indent_h]
+
+            $(rotator.canvas).Jcrop
+              aspectRatio: undefined
+              setSelect: start_select
+              bgColor: '#222'
+              bgOpacity: 0.25
+
+              onSelect: (c) ->
+                $('#process_data_x1').val(c.x)
+                $('#process_data_y1').val(c.y)
+                $('#process_data_x2').val(c.x2)
+                $('#process_data_y2').val(c.y2)
+
+          change: (rotator) ->
+            $('#process_data_angle').val(rotator.angle)
+
+        $('.process-toolbar .common .fullscreen').click ->
+          $('.header, .footer, .crumbs, h2').toggle()
+          $.cookie 'fullscreen', (if $('.header').is(':visible') then 'false' else 'true'), path : '/'
+
+        if $.cookie('fullscreen') == 'true'
+          $('.process-toolbar .common .fullscreen').click()
+
+        $('.process-toolbar .common .grid').click ->
+          rotator_app.rotator.grid.visibility = !rotator_app.rotator.grid.visibility
+          rotator_app.rotator.redraw()
+
+          $.cookie 'grid', (if rotator_app.rotator.grid.visibility then 'true' else 'false'), path : '/'
+
+        if $.cookie('grid') == 'false'
+          $('.process-toolbar .common .grid').click()
+
+-else
+  %p.alert= t('pages.page_is_in_processing')
+  = render 'nav', page: @page, action: 'process_form'
+

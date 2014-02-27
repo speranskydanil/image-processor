@@ -1,0 +1,155 @@
+- content_for :title, title(t('nodes.nodes'), @node.name, t('nodes.upload_pages.title'))
+
+- content_for :crumbs do
+  - add_crumbs_for_node @node
+  - add_crumb t('nodes.upload_pages.title')
+
+  = get_crumbs
+
+.span12
+  %h2= t('nodes.upload_pages.title')
+
+  .help= t('nodes.upload_pages.help')
+
+  = form_for Page.new, html: { multipart: true, class: 'fileupload' } do |f|
+    = f.hidden_field :node_id, value: @node.id
+
+    .row.fileupload-buttonbar
+      .span8
+        %span.btn.btn-default.fileinput-button
+          %i.icon-plus.icon-white
+          %span= t('fileupload.add_files')
+          %input(type="file" name="files[]" multiple)
+
+        %button(type="submit" class="btn btn-default start")
+          %i.icon-upload.icon-white
+          %span= t('fileupload.start_upload')
+
+        %button(type="reset" class="btn btn-default cancel")
+          %i.icon-ban-circle.icon-white
+          %span= t('fileupload.cancel_upload')
+
+        %button(type="button" class="btn btn-default delete")
+          %i.icon-trash.icon-white
+          %span= t('fileupload.delete')
+
+    %br
+
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= t('fileupload.preview')
+          %th= t('fileupload.name')
+          %th= t('fileupload.size')
+
+      %tbody.files
+
+    %br
+
+    .row.fileupload-buttonbar
+      .span8
+        %span.btn.btn-default.fileinput-button
+          %i.icon-plus.icon-white
+          %span= t('fileupload.add_files')
+          %input(type="file" name="files[]" multiple)
+
+        %button(type="submit" class="btn btn-default start")
+          %i.icon-upload.icon-white
+          %span= t('fileupload.start_upload')
+
+        %button(type="reset" class="btn btn-default cancel")
+          %i.icon-ban-circle.icon-white
+          %span= t('fileupload.cancel_upload')
+
+        %button(type="button" class="btn btn-default delete")
+          %i.icon-trash.icon-white
+          %span= t('fileupload.delete')
+
+.clear
+
+- content_for :javascript do
+  = javascript_include_tag 'jquery-fileupload/app'
+
+  :coffee
+    $('.fileupload').fileupload sequentialUploads: true
+
+    $.getJSON $('.fileupload').prop('action'), (files) ->
+      fu = $('.fileupload').data('fileupload')
+      fu._adjustMaxNumberOfFiles(-files.length)
+      template = fu._renderDownload(files).appendTo $('.fileupload .files')
+      fu._reflow = fu._transition and template.length and template[0].offsetWidth
+      template.addClass 'in'
+
+:plain
+  <script id="template-upload" type="text/x-tmpl">
+    {% for (var i = 0, file; file = o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td class="preview"><span class="fade"></span></td>
+      <td class="name"><span>{%= file.name %}</span></td>
+      <td class="size"><span>{%= o.formatFileSize(file.size) %}</span></td>
+      {% if (file.error) { %}
+      <td class="error" colspan="2">
+        <span class="label label-important">{%= locale.fileupload.error %}</span>
+        {%= locale.fileupload.errors[file.error] || file.error %}
+      </td>
+      {% } else if (o.files.valid && !i) { %}
+      <td>
+        <div class="progress progress-striped active">
+          <div class="progress-bar progress-bar-info bar" style="width: 0%;"></div>
+        </div>
+      </td>
+      <td class="start">
+        {% if (!o.options.autoUpload) { %}
+        <button class="btn btn-default">
+          <i class="icon-upload icon-white"></i>
+          <span>{%= locale.fileupload.start %}</span>
+        </button>
+        {% } %}
+      </td>
+      {% } else { %}
+      <td colspan="2"></td>
+      {% } %}
+      <td class="cancel">
+        {% if (!i) { %}
+        <button class="btn btn-default">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>{%= locale.fileupload.cancel %}</span>
+        </button>
+        {% } %}
+      </td>
+    </tr>
+    {% } %}
+  </script>
+
+  <script id="template-download" type="text/x-tmpl">
+    {% for (var i = 0, file; file = o.files[i]; i++) { %}
+      <tr class="template-download fade">
+        {% if (file.error) { %}
+        <td></td>
+        <td class="name"><span>{%= file.name %}</span></td>
+        <td class="size"><span>{%= o.formatFileSize(file.size) %}</span></td>
+        <td class="error" colspan="2">
+          <span class="label label-important">{%= locale.fileupload.error %}</span>
+          {%= locale.fileupload.errors[file.error] || file.error %}
+        </td>
+        {% } else { %}
+        <td class="preview">
+          {% if (file.thumbnail_url) { %}
+            <img src="{%= file.thumbnail_url %}">
+          {% } %}
+        </td>
+        <td class="name">{%= file.name %}</td>
+        <td class="size"><span>{%= o.formatFileSize(file.size) %}</span></td>
+        <td colspan="2"></td>
+        {% } %}
+        <td class="delete">
+          <button class="btn btn-default" data-type="{%= file.delete_type %}" data-url="{%= file.delete_url %}">
+            <i class="icon-trash icon-white"></i>
+            <span>{%= locale.fileupload.destroy %}</span>
+          </button>
+        </td>
+        <td></td>
+      </tr>
+    {% } %}
+  </script>
+

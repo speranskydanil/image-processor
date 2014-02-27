@@ -1,0 +1,75 @@
+!!!
+
+%html
+  %head
+    %title Image Processor | #{ yield :title }
+
+    %meta(name="author" lang="ru" content="Speransky Danil")
+    %meta(name="copyright" lang="ru" content="Speransky Danil")
+
+    = stylesheet_link_tag '/assets/application', media: 'all'
+
+    = csrf_meta_tags
+
+  %body#body.body
+    .header
+      .logo
+        = link_to image_tag('logo.png'), main_path
+
+      - if user_signed_in?
+        .admin
+          %h3= t('admin.panel')
+
+          = link_to t('main'), main_path
+          = link_to t('admin.users'), users_path
+          = link_to t('admin.statistics'), statistics_path
+          = link_to t('admin.mail_to_admin'), new_mail_to_admin_path
+
+      .sidebar
+        - if user_signed_in?
+          %b= current_user.email
+          |
+          = link_to t('auth.sign_out'), destroy_user_session_path, method: :delete
+
+          %hr
+
+          = link_to_unless I18n.locale == :en, 'English', params.merge(locale: :en)
+          |
+          = link_to_unless I18n.locale == :ru, 'Русский', params.merge(locale: :ru)
+
+          %hr
+
+          = link_to "#{t('number_of_delayed_jobs')}: #{Delayed::Job.count}", '/en/delayed_job'
+
+      .clear
+
+    .content
+      .scroll-up
+        %span
+
+      = yield :compass
+
+      .crumbs= yield :crumbs
+
+      - if flash[:alert]
+        %p.alert.alert-warning= flash[:alert]
+
+      - if flash[:error]
+        %p.alert.alert-danger= flash[:error]
+
+      - if flash[:notice]
+        %p.alert.alert-success= flash[:notice]
+
+      = yield
+
+    .footer
+      .version
+        version 1.1.1
+        %br
+        revision 14-02-27
+
+      .clear
+
+    = javascript_include_tag '/assets/application'
+    = yield :javascript
+

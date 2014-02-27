@@ -1,0 +1,7 @@
+en:
+  activerecord:
+    models:
+      node: 'Узел'
+      page: 'Страницу'
+      user: 'Пользователя'
+

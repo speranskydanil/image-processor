@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+flags = 'laidcmspj'.split('')
+except = []
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/rebuild [options]\n\n"
+
+  opts.on('-f F', '--flags F', 'Flags for the rebuild script (by default all of them)',
+                               'l - rm -R log/*',
+                               'a - rm -R public/assets/*',
+                               'i - mkdir public/system; cd public/system; ls | grep -v paperclip_attachments.yml | xargs rm -R',
+                               'd - bundle exec rake db:drop',
+                               'c - bundle exec rake db:create',
+                               'm - bundle exec rake db:migrate',
+                               's - bundle exec rake db:seed',
+                               'p - rm -R public/assets/*; bundle exec rake assets:precompile',
+                               'j - bin/delayed_job restart',
+                               "Example: dcms\n\n") do |f|
+    flags = f.split('')
+  end
+
+  opts.on('-e E', '--except E', 'Except flags for the rebuild script',
+                                "See documentation for --flags\n\n") do |e|
+    except = e.split('')
+  end
+end.parse!
+
+flags -= except
+
+cmds = {
+  'l' => 'rm -R log/*',
+  'a' => 'rm -R public/assets/*',
+  'i' => 'mkdir public/system; cd public/system; ls | grep -v paperclip_attachments.yml | xargs rm -R',
+  'd' => 'bundle exec rake db:drop',
+  'c' => 'bundle exec rake db:create',
+  'm' => 'bundle exec rake db:migrate',
+  's' => 'bundle exec rake db:seed',
+  'p' => 'rm -R public/assets/*; bundle exec rake assets:precompile',
+  'j' => 'bin/delayed_job restart',
+}
+
+cmds.each do |flag, cmd|
+  next unless flags.include? flag
+
+  puts "STARTED `#{cmd}` \n\n"
+  t = Time.now
+  puts `#{cmd}`
+  puts "COMPLETED IN #{ '%.2f' % (Time.now - t) } SECONDS `#{cmd}` \n\n"
+end
+

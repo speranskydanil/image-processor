@@ -1,0 +1,21 @@
+- content_for :title, t('mail_to_admin.title')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('mail_to_admin.title')
+
+  = get_crumbs
+
+%h2= t('mail_to_admin.title')
+
+.help= t('mail_to_admin.help')
+
+= form_tag(create_mail_to_admin_path) do
+  .form-group
+    = label_tag t('mail_to_admin.message')
+    = text_area_tag :message, nil, rows: 7, class: 'form-control'
+
+  %br
+
+  = submit_tag nil, class: 'btn btn-default'
+

@@ -1,0 +1,106 @@
+en:
+  back: 'Back'
+  show: 'Show'
+  edit: 'Edit'
+  destroy: 'Destroy'
+  are_you_sure: 'Are you sure?'
+  save: 'Save'
+  submit: 'Submit'
+
+  main: 'Main'
+
+  number_of_delayed_jobs: 'Number of delayed jobs'
+
+  auth:
+    access_denied: "Sorry, you don't have access to that page."
+    sign_in: 'Sign in'
+    sign_out: 'Sign out'
+    recaptcha_error: 'Incorrectly typed the code from the image'
+
+  admin:
+    panel: 'Admin Panel'
+    users: 'Users'
+    statistics: 'Statistics'
+    mail_to_admin: 'Mail to admin'
+
+  users:
+    users: 'Users'
+    email: 'Email'
+    password: 'Password'
+    password_confirmation: 'Password confirmation'
+    new: 'New user'
+    edit: 'Edit user'
+    created: 'User was successfully created.'
+    updated: 'User was successfully updated.'
+
+  nodes:
+    node: 'Node'
+    nodes: 'Nodes'
+    index_help: 'This is a new collection. Try to create the first node.'
+
+    expander: 'Description'
+
+    parent: 'Parent'
+    name: 'Name'
+    description: 'Description'
+    status: 'Status'
+    n_sided: 'N-sided'
+    created_at: 'Created at'
+    pages_count: 'Pages count'
+
+    edit: 'Edit node'
+
+    upload_pages:
+      title: 'Upload pages'
+      help: 'This is the screen for uploading pages. Choose files and upload them. Files will be uploaded sequentially.'
+
+    cancel: 'Cancel all changes'
+    duplicate: 'Duplicate all pages'
+
+    generate_zip: 'Generate zip'
+    generating_zip: 'Generating zip'
+    download_zip: 'Download zip'
+
+    new: 'New node'
+    destroy_nodes: 'Delete all nodes'
+    destroy_pages: 'Delete all pages'
+
+    update_pages_positions: 'Update pages positions'
+
+    created: 'Node was successfully created.'
+    updated: 'Node was successfully updated.'
+
+  pages:
+    page: 'Page'
+    actions: 'Actions'
+
+    view_in_high_resolution: 'View in high resolution'
+    view_raw: 'View raw'
+
+    process:
+      title: 'Process'
+      fullscreen: 'Fullscreen'
+      grid: 'Grid'
+      save: 'Save'
+      apply_to_prev: 'Apply to previous'
+      apply_to_next: 'Apply to next'
+
+    cancel: 'Cancel all changes'
+    duplicate: 'Duplicate'
+    insert: 'Insert'
+
+    page_is_in_processing: 'Page is in processing. Try to reload this page later.'
+
+  statistics:
+    title: 'Statistics'
+    number_of_nodes: 'Number of nodes'
+    number_of_pages: 'Number of pages'
+    disk_usage_for_images: 'Disk usage for images'
+    calculating: 'Calculating'
+
+  mail_to_admin:
+    title: 'Mail to admin'
+    help: 'Write to the administrator if you have a problem.'
+    message: 'Message'
+    created: 'Message was sent'
+

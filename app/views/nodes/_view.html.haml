@@ -1,0 +1,53 @@
+- @sort = params[:sort] || 'name'
+- @direction = params[:direction] || 'asc'
+
+- nodes = node.children.with_pages_count.includes(:status).reorder("#{@sort} #{@direction}")
+- nodes = nodes.page(params[:page]).per(params[:per_page] || @project.default_per_page)
+
+- pages = node.pages
+
+- if nodes.total_count > 0
+  = render 'shared/pagination_bar', objects: nodes
+
+  - offset = (nodes.current_page - 1) * nodes.limit_value
+
+  %table.nodes-list.table.table-striped
+    %thead
+      %tr
+        %th #
+        %th= sortable t('nodes.name'),        'name',                   @sort, @direction
+        %th= sortable t('nodes.description'), 'description',            @sort, @direction
+        %th= sortable t('nodes.status'),      'node_statuses.position', @sort, @direction
+        %th= sortable t('nodes.created_at'),  'created_at',             @sort, @direction
+        %th= sortable t('nodes.pages_count'), 'pages_count',            @sort, @direction
+
+    %tbody
+      - nodes.each_with_index do |node, i|
+        %tr
+          %td.c1= offset + i + 1
+          %td.c3= link_to node.name, node
+          %td.c4= node.description
+          %td.c5= node.status.name
+          %td.c6= node.created_at.to_date
+          %td.c7= node.pages.length
+
+  = render 'shared/pagination_bar', objects: nodes
+
+- unless pages.empty?
+  = form_for(node, url: update_pages_positions_node_path) do |f|
+    .nodes-sorting-grid
+      %ul.sortable
+        - pages.each_with_index do |page, i|
+          %li
+            = hidden_field_tag 'pages_ids[]', page.id
+
+            .cover
+              = link_to page.image.url(:large), class: 'fancybox', title: i + 1, rel: 'sg' do
+                = image_tag page.image.url(:preview)
+
+            .name= link_to i + 1, page
+
+      .clear
+
+    = f.submit t('nodes.update_pages_positions'), class: 'btn btn-default'
+

@@ -1,0 +1,30 @@
+- content_for :title, t('users.users')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('users.users')
+
+  = get_crumbs
+
+%h2= t('users.users')
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= t('users.email')
+      %th
+      %th
+      %th
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= link_to t('show'), user
+        %td= link_to t('edit'), edit_user_path(user)
+        %td= link_to t('destroy'), user, confirm: t('are_you_sure'), method: :delete
+
+%br
+
+= btn_to t('users.new'), new_user_path
+

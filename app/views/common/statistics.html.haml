@@ -1,0 +1,28 @@
+- content_for :title, t('statistics.title')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('statistics.title')
+
+  = get_crumbs
+
+%h2= t('statistics.title')
+
+%table.table.table-striped
+  %tbody
+    %tr
+      %td= t('statistics.number_of_nodes')
+      %td= Node.unscoped.count
+
+    %tr
+      %td= t('statistics.number_of_pages')
+      %td= Page.unscoped.count
+
+    %tr
+      %td= t('statistics.disk_usage_for_images')
+      %td.disk_usage_for_images= t('statistics.calculating')
+
+- content_for :javascript do
+  :coffee
+    $('.disk_usage_for_images').load '/disk_usage_for_images'
+

@@ -1,0 +1,19 @@
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  -ms-border-radius: $radius
+  -o-border-radius: $radius
+  border-radius: $radius
+
+@mixin box-shadow($style, $alpha)
+  box-shadow: $style rgba(0, 0, 0, $alpha)
+  -webkit-box-shadow: $style rgba(0, 0, 0, $alpha)
+  -moz-box-shadow: $style rgba(0, 0, 0, $alpha)
+
+@mixin box-sizing($style)
+  -moz-box-sizing: $style
+  -webkit-box-sizing: $style
+  -o-box-sizing: $style
+  -ms-box-sizing: $style
+  box-sizing: $style
+

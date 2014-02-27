@@ -1,0 +1,35 @@
+- action ||= ''
+- path = action.blank? ? 'page_path' : "#{action}_page_path"
+
+- siblings = page.siblings
+- index = siblings.index(page)
+
+.pages-nav
+  - if index == 0
+    = content_tag :span, '|<', class: 'btn btn-default btn-sm disabled'
+    = content_tag :span, '<', class: 'btn btn-default btn-sm disabled'
+  - else
+    = link_to '|<', self.send(path, siblings.first), class: 'btn btn-default btn-sm'
+    = link_to '<', self.send(path, siblings[index - 1]), class: 'btn btn-default btn-sm'
+
+  %span.state
+    %input.current{ type: 'text', value: index + 1 }
+    \/
+    %span.total= siblings.length
+
+  - if index == siblings.length - 1
+    = content_tag :span, '>', class: 'btn btn-default btn-sm disabled'
+    = content_tag :span, '>|', class: 'btn btn-default btn-sm disabled'
+  - else
+    = link_to '>', self.send(path, siblings[index + 1]), class: 'btn btn-default btn-sm'
+    = link_to '>|', self.send(path, siblings.last), class: 'btn btn-default btn-sm'
+
+= content_for :javascript do
+  :coffee
+    $(document).ready ->
+      $('.pages-nav .current').on 'change keyup', (e) ->
+        id_by_pos = { #{ siblings.map { |s| "#{siblings.index(s) + 1}: #{s.id}" }.join(',') } }
+
+        if id_by_pos[this.value] and (e.type == 'change' or (e.type == 'keyup' and e.keyCode == 13))
+          window.location.replace "/pages/\#{ id_by_pos[this.value] }/#{ action }"
+

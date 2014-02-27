@@ -1,0 +1,17 @@
+- content_for :title, title(t('users.users'), @user.email, t('users.edit'))
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb link_to t('users.users'), users_path
+  - add_crumb link_to @user.email, @user
+  - add_crumb t('users.edit')
+
+  = get_crumbs
+
+%h2= t('users.edit')
+
+= render 'form', url: user_path(@user)
+
+= btn_to t('show'), @user
+= btn_to t('back'), users_path
+

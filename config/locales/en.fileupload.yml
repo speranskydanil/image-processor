@@ -1,0 +1,10 @@
+en:
+  fileupload:
+    add_files: "Add files..."
+    start_upload: "Start upload"
+    cancel_upload: "Cancel upload"
+    delete: "Delete"
+    preview: 'Preview'
+    name: 'Name'
+    size: 'Size'
+

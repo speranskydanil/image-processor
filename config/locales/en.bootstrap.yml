@@ -1,0 +1,15 @@
+en:
+  helpers:
+    actions: "Actions"
+    links:
+      back: "Back"
+      cancel: "Cancel"
+      confirm: "Are you sure?"
+      destroy: "Delete"
+      new: "New"
+    titles:
+      edit: "Edit"
+      save: "Save"
+      new: "New"
+      delete: "Delete"
+

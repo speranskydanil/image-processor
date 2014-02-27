@@ -1,0 +1,49 @@
+.body
+  background-color: #f5f5f5
+  background-image: url(/assets/classic/background.png)
+
+.header
+  border-bottom: 2px dashed #bbb
+
+  .admin
+    border: 1px solid #ccc
+    background: #fff
+    background: rgba(255, 255, 255, 0.5)
+    @include border-radius(10px)
+    @include box-shadow(2px 2px 5px, 0.25)
+
+    a
+      border: 1px solid #ccc
+      background: #f5f5f5
+      color: #555
+      text-decoration: none
+      @include border-radius(10px)
+      @include box-shadow(2px 2px 5px, 0.1)
+
+      &:hover
+        background: #eee
+
+.footer
+  border-top: 2px dashed #bbb
+  color: #555
+
+.crumbs .arrow
+  color: #555
+
+.scroll-up
+  border: 1px solid #ccc
+  background: #e5e5e5
+  background: rgba(192, 192, 192, 0.2)
+  @include border-radius(10px)
+  @include box-shadow(2px 2px 5px, 0.25)
+
+.compass
+  border: 1px solid #ccc
+  background: #e5e5e5
+  background: rgba(192, 192, 192, 0.2)
+  @include border-radius(10px)
+  @include box-shadow(2px 2px 5px, 0.25)
+
+  .state
+    color: #777
+

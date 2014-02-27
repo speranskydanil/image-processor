@@ -1,0 +1,12 @@
+- content_for :title, title(t('nodes.nodes'), t('nodes.new'))
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('nodes.new')
+
+  = get_crumbs
+
+%h2= t('nodes.new')
+
+= render 'form'
+

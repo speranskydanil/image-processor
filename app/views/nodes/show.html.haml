@@ -1,0 +1,19 @@
+- content_for :title, @node.name
+
+- unless @node.root?
+  - content_for :crumbs do
+    - add_crumbs_for_node @node, true
+    = get_crumbs
+
+= render 'compass', node: @node
+
+- length = @node.name.to_s.length
+- cls = length < 80 ? 'large' : length < 160 ? 'medium' : 'small'
+%h1(class=cls)= @node.name
+
+= render 'links', node: @node
+
+= render 'metadata', node: @node
+
+= render 'view', node: @node
+

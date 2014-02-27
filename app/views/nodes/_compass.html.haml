@@ -1,0 +1,18 @@
+- siblings = node.siblings
+- index = siblings.index(node)
+
+- unless siblings.count == 1
+  - content_for :compass do
+    .compass
+      - if index == 0
+        = content_tag :span, '', class: 'left'
+      - else
+        = link_to '', siblings[index - 1], class:  'left'
+
+      - if index == siblings.length - 1
+        = content_tag :span, '', class: 'right'
+      - else
+        = link_to '', siblings[index + 1], class:  'right'
+
+      %span.state #{ index + 1 } / #{ siblings.length }
+

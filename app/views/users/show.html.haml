@@ -1,0 +1,18 @@
+- content_for :title, title(t('users.users'), @user.email)
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb link_to t('users.users'), users_path
+  - add_crumb @user.email
+
+  = get_crumbs
+
+%p
+  %b #{ t('users.email') }:
+  = @user.email
+
+%br
+
+= btn_to t('edit'), edit_user_path(@user)
+= btn_to t('back'), users_path
+
