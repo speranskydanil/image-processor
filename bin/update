@@ -15,7 +15,7 @@ OptionParser.new do |opts|
                                'b - bundle install',
                                'm - bundle exec rake db:migrate',
                                'p - rm -R public/assets/*; bundle exec rake assets:precompile',
-                               'j - script/delayed_job restart',
+                               'j - bin/delayed_job restart',
                                "Example: gm\n\n") do |f|
     flags = f.split('')
   end
@@ -35,7 +35,7 @@ cmds = {
   'b' => 'bundle install',
   'm' => 'bundle exec rake db:migrate',
   'p' => 'rm -R public/assets/*; bundle exec rake assets:precompile',
-  'j' => 'script/delayed_job restart',
+  'j' => 'bin/delayed_job restart',
 }
 
 cmds.each do |flag, cmd|
