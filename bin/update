@@ -14,7 +14,7 @@ OptionParser.new do |opts|
                                'g - git pull',
                                'b - bundle install',
                                'm - bundle exec rake db:migrate',
-                               'p - rm -R public/assets/*; bundle exec rake assets:precompile',
+                               'p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile',
                                'j - bin/delayed_job restart',
                                "Example: gm\n\n") do |f|
     flags = f.split('')
@@ -34,7 +34,7 @@ cmds = {
   'g' => 'git pull',
   'b' => 'bundle install',
   'm' => 'bundle exec rake db:migrate',
-  'p' => 'rm -R public/assets/*; bundle exec rake assets:precompile',
+  'p' => 'rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile',
   'j' => 'bin/delayed_job restart',
 }
 

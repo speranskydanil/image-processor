@@ -41,7 +41,7 @@ Default login and password (seeds.rb): name@company.com passwordexample
                          c - bundle exec rake db:create
                          m - bundle exec rake db:migrate
                          s - bundle exec rake db:seed
-                         p - rm -R public/assets/*; bundle exec rake assets:precompile
+                         p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile
                          j - bin/delayed_job restart
                          Example: dcms
 
@@ -60,7 +60,7 @@ Default login and password (seeds.rb): name@company.com passwordexample
                          g - git pull
                          b - bundle install
                          m - bundle exec rake db:migrate
-                         p - rm -R public/assets/*; bundle exec rake assets:precompile
+                         p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile
                          j - bin/delayed_job restart
                          Example: gm
 

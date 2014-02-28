@@ -7,7 +7,7 @@
     %meta(name="author" lang="ru" content="Speransky Danil")
     %meta(name="copyright" lang="ru" content="Speransky Danil")
 
-    = stylesheet_link_tag '/assets/application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
 
     = csrf_meta_tags
 
@@ -70,6 +70,6 @@
 
       .clear
 
-    = javascript_include_tag '/assets/application'
+    = javascript_include_tag 'application'
     = yield :javascript
 

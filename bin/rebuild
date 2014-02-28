@@ -16,7 +16,7 @@ OptionParser.new do |opts|
                                'c - bundle exec rake db:create',
                                'm - bundle exec rake db:migrate',
                                's - bundle exec rake db:seed',
-                               'p - rm -R public/assets/*; bundle exec rake assets:precompile',
+                               'p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile',
                                'j - bin/delayed_job restart',
                                "Example: dcms\n\n") do |f|
     flags = f.split('')
@@ -38,7 +38,7 @@ cmds = {
   'c' => 'bundle exec rake db:create',
   'm' => 'bundle exec rake db:migrate',
   's' => 'bundle exec rake db:seed',
-  'p' => 'rm -R public/assets/*; bundle exec rake assets:precompile',
+  'p' => 'rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile',
   'j' => 'bin/delayed_job restart',
 }
 

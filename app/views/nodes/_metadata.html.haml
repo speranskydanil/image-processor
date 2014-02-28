@@ -1,6 +1,6 @@
 .metadata
   = link_to '', class: 'expander' do
-    %i(class="icon-chevron-#{cookies['expander'] == 'hide' ? 'right' : 'down'}")
+    %span(class="glyphicon glyphicon-chevron-#{cookies['expander'] == 'hide' ? 'right' : 'down'}")
     = t('nodes.expander')
 
   .wrapper{ style: ('display: none' if cookies['expander'] == 'hide') }
