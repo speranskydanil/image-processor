@@ -36,6 +36,7 @@ Default login and password (seeds.rb): name@company.com passwordexample
     -f, --flags F        Flags for the rebuild script (by default all of them)
                          l - bundle exec rake log:clear
                          a - bundle exec rake assets:clean
+                         i - [ -e public/system ] && rm -R public/system/*
                          d - bundle exec rake db:drop
                          c - bundle exec rake db:create
                          m - bundle exec rake db:migrate

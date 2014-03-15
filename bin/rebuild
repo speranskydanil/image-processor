@@ -2,7 +2,7 @@
 
 require 'optparse'
 
-flags = %i(l a d c m s p j)
+flags = %i(l a i d c m s p j)
 except = []
 
 OptionParser.new do |opts|
@@ -11,6 +11,7 @@ OptionParser.new do |opts|
   opts.on('-f F', '--flags F', 'Flags for the rebuild script (by default all of them)',
                                'l - bundle exec rake log:clear',
                                'a - bundle exec rake assets:clean',
+                               'i - [ -e public/system ] && rm -R public/system/*',
                                'd - bundle exec rake db:drop',
                                'c - bundle exec rake db:create',
                                'm - bundle exec rake db:migrate',
@@ -32,6 +33,7 @@ flags -= except
 cmds = {
   l: 'bundle exec rake log:clear',
   a: 'bundle exec rake assets:clean',
+  i: '[ -e public/system ] && rm -R public/system/*',
   d: 'bundle exec rake db:drop',
   c: 'bundle exec rake db:create',
   m: 'bundle exec rake db:migrate',
