@@ -34,15 +34,14 @@ Default login and password (seeds.rb): name@company.com passwordexample
     Usage: bin/rebuild [options]
 
     -f, --flags F        Flags for the rebuild script (by default all of them)
-                         l - rm -R log/*
-                         a - rm -R public/assets/*
-                         i - mkdir public/system; cd public/system; ls | grep -v paperclip_attachments.yml | xargs rm -R
+                         l - bundle exec rake log:clear
+                         a - bundle exec rake assets:clean
                          d - bundle exec rake db:drop
                          c - bundle exec rake db:create
                          m - bundle exec rake db:migrate
                          s - bundle exec rake db:seed
-                         p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile
-                         j - bin/delayed_job restart
+                         p - RAILS_ENV=production bundle exec rake assets:precompile
+                         j - [ -e bin/delayed_job ] && bin/delayed_job restart
                          Example: dcms
 
     -e, --except E       Except flags for the rebuild script
@@ -55,13 +54,13 @@ Default login and password (seeds.rb): name@company.com passwordexample
     Usage: bin/update [options]
 
     -f, --flags F        Flags for the update script (by default all of them)
-                         l - rm -R log/*
-                         a - rm -R public/assets/*
+                         l - bundle exec rake log:clear
+                         a - bundle exec rake assets:clean
                          g - git pull
                          b - bundle install
                          m - bundle exec rake db:migrate
-                         p - rm -R public/assets/*; RAILS_ENV=production bundle exec rake assets:precompile
-                         j - bin/delayed_job restart
+                         p - RAILS_ENV=production bundle exec rake assets:precompile
+                         j - [ -e bin/delayed_job ] && bin/delayed_job restart
                          Example: gm
 
     -e, --except E       Except flags for the update script
