@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20000000000070) do
+ActiveRecord::Schema.define(version: 20000000000090) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -54,10 +54,10 @@ ActiveRecord::Schema.define(version: 20000000000070) do
   add_index "nodes", ["status_id"], name: "index_nodes_on_status_id", using: :btree
 
   create_table "pages", force: true do |t|
-    t.integer  "position",           default: 0
+    t.integer  "position",                                   default: 0
     t.integer  "node_id"
-    t.string   "status",             default: "free"
-    t.integer  "angle"
+    t.string   "status",                                     default: "free"
+    t.decimal  "angle",              precision: 5, scale: 2
     t.integer  "x1"
     t.integer  "y1"
     t.integer  "x2"

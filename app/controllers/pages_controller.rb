@@ -34,7 +34,7 @@ class PagesController < ApplicationController
   def process_act
     @page = Page.find(params[:id])
 
-    angle, x1, y1, x2, y2 = params[:process_data][:angle].to_i,
+    angle, x1, y1, x2, y2 = params[:process_data][:angle].to_f,
                             params[:process_data][:x1].to_i,
                             params[:process_data][:y1].to_i,
                             params[:process_data][:x2].to_i,
