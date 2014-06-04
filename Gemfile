@@ -24,8 +24,6 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 
 gem 'paperclip'
 
-gem 'jquery-fileupload-rails'
-
 gem 'fancybox2-rails'
 
 gem 'kaminari'

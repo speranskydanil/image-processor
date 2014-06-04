@@ -1,10 +1,13 @@
 ru:
   fileupload:
-    add_files: "Добавить файлы..."
-    start_upload: "Начать загрузку"
-    cancel_upload: "Отменить загрузку"
-    delete: "Удалить"
+    add_files: 'Добавить файлы...'
+    start_upload: 'Начать загрузку'
+    cancel_upload: 'Отменить загрузку'
+    delete: 'Удалить'
     preview: 'Предпросмотр'
     name: 'Имя'
     size: 'Размер'
+    start: 'Начать'
+    cancel: 'Отменить'
+    error: 'Ошибка'
 

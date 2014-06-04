@@ -38,7 +38,7 @@
     %table.table.table-striped
       %thead
         %tr
-          %th= t('fileupload.preview')
+          %th
           %th= t('fileupload.name')
           %th= t('fileupload.size')
 
@@ -68,17 +68,17 @@
 .clear
 
 - content_for :javascript do
-  = javascript_include_tag 'jquery-fileupload/app'
+  = javascript_include_tag 'jQuery-File-Upload/app'
 
   :coffee
-    $('.fileupload').fileupload sequentialUploads: true
+    window.locale =
+      fileupload:
+        start: '#{ t('fileupload.start') }'
+        cancel: '#{ t('fileupload.cancel') }'
+        destroy: '#{ t('fileupload.delete') }'
+        error: '#{ t('fileupload.error') }'
 
-    $.getJSON $('.fileupload').prop('action'), (files) ->
-      fu = $('.fileupload').data('fileupload')
-      fu._adjustMaxNumberOfFiles(-files.length)
-      template = fu._renderDownload(files).appendTo $('.fileupload .files')
-      fu._reflow = fu._transition and template.length and template[0].offsetWidth
-      template.addClass 'in'
+    $('.fileupload').fileupload sequentialUploads: true, disableImageLoad: true
 
 :plain
   <script id="template-upload" type="text/x-tmpl">
@@ -92,8 +92,8 @@
         <span class="label label-important">{%= locale.fileupload.error %}</span>
         {%= locale.fileupload.errors[file.error] || file.error %}
       </td>
-      {% } else if (o.files.valid && !i) { %}
-      <td>
+      {% } else if (!i) { %}
+      <td width="100">
         <div class="progress progress-striped active">
           <div class="progress-bar progress-bar-info bar" style="width: 0%;"></div>
         </div>
@@ -134,7 +134,7 @@
         </td>
         {% } else { %}
         <td class="preview">
-          {% if (file.thumbnail_url) { %}
+          {% if (file.thumbnail_url && false) { %}
             <img src="{%= file.thumbnail_url %}">
           {% } %}
         </td>
