@@ -34,7 +34,7 @@
   = render 'shared/pagination_bar', objects: nodes
 
 - unless pages.empty?
-  = form_for(node, url: update_pages_positions_node_path) do |f|
+  = form_for(node, url: update_pages_positions_node_path, method: :put) do |f|
     .nodes-sorting-grid
       %ul.sortable
         - pages.each_with_index do |page, i|
