@@ -1,0 +1,161 @@
+.body
+  margin: 15px
+
+.header
+  width: 960px
+  margin: 0px auto 15px auto
+
+  .navbar-default
+    position: absolute
+    top: -1px
+    margin-left: 20px
+    @include border-tl-radius(0px)
+    @include border-tr-radius(0px)
+
+    .glyphicon
+      margin-right: 4px
+      color: #777
+
+    .job-bar .glyphicon
+      margin-right: 2px
+      font-size: 12px
+    .job-total
+      margin-left: 2px
+      padding: 2px 7px
+      font-size: 10px
+      background: #59c
+      vertical-align: 10%
+    .job-errors
+      margin-left: 2px
+      padding: 2px 7px
+      font-size: 10px
+      background: #c55
+      vertical-align: 10%
+
+  .sidebar
+    float: right
+
+    .separator
+      margin: 0px 3px
+      font-size: 18px
+      vertical-align: -10%
+
+    .lang
+      margin-top: 2px
+
+.footer
+  width: 960px
+  margin: 0px auto 30px auto
+  padding-top: 15px
+  border-top: 1px solid black
+
+  .version
+    float: left
+    margin-right: 30px
+    padding: 5px 20px
+    cursor: pointer
+    text-decoration: none
+    @include monospace
+
+.content
+  width: 960px
+  min-height: 480px
+  margin: 0px auto 30px auto
+
+.crumbs
+  margin-bottom: 10px
+
+  a,
+  span
+    white-space: nowrap
+    cursor: pointer
+
+  .arrow
+    font-size: 12px
+
+.scroll-up
+  position: fixed
+  right: 20px
+  width: 34px
+  height: 34px
+  margin: 0px
+  padding: 4px
+  border: 1px solid black
+  background: none
+  z-index: 950
+
+  span
+    display: block
+    width: 24px
+    height: 24px
+    margin: 0px
+    padding: 0px
+    background: asset-url('icons.png') no-repeat scroll transparent
+    outline: none
+    cursor: pointer
+
+.scroll-up
+  display: none
+  top: 20px
+
+  span
+    background-position: -240px 0px
+
+    &:hover
+      background-position: -240px -24px
+
+.scroll-down
+  bottom: 20px
+
+  span
+    background-position: -264px 0px
+
+    &:hover
+      background-position: -264px -24px
+
+.compass
+  float: right
+  width: 133px
+  height: 34px
+  margin: 0px 0px 10px 10px
+  padding: 4px
+  border: 1px solid black
+  background: none
+
+  .state
+    float: right
+    margin-right: 5px
+    font-size: 12px
+    line-height: 25px
+
+  .left, .right
+    display: block
+    float: left
+    width: 24px
+    height: 24px
+    margin: 0px
+    padding: 0px
+    background: asset-url('icons.png') no-repeat scroll 0px 0px transparent
+    outline: none
+    cursor: pointer
+
+  .left
+    background-position: -192px 0px
+
+  .left:hover
+    background-position: -192px -24px
+
+  span.left,
+  span.left:hover
+    background-position: -192px -48px
+
+  .right
+    background-position: -216px 0px
+
+  .right:hover
+    background-position: -216px -24px
+
+  span.right,
+  span.right:hover
+    background-position: -216px -48px
+

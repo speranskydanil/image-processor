@@ -1,14 +1,14 @@
-= form_for(@node) do |f|
+= form_for(node) do |f|
   = render 'shared/error_explanation', object: @node
 
-  - unless @node.root?
-    .form-group
-      = f.label t('nodes.parent')
-      = f.select :parent_id, options_for_node, {}, class: 'form-control'
-
   .form-group
-    = f.label t('nodes.name')
+    = f.label :name, t('nodes.name')
     = f.text_field :name, class: 'form-control'
+
+  - unless node.root?
+    .form-group
+      = f.label :parent_id, t('nodes.parent')
+      = f.hidden_field :parent_id, class: 'chained-node-select'
 
   .form-group
     = f.label t('nodes.description')
@@ -21,8 +21,6 @@
   .form-group
     = f.label t('nodes.n_sided')
     = f.text_field :n_sided, class: 'form-control'
-
-  %br
 
   = f.submit class: 'btn btn-default'
 

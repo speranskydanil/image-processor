@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '~>4.2.0'
 gem 'mysql2'
-gem 'unicorn', '=4.6.3'
+gem 'unicorn'
 
 gem 'therubyracer'
 gem 'uglifier'
@@ -22,6 +22,8 @@ gem 'russian'
 gem 'devise'
 gem 'recaptcha', :require => 'recaptcha/rails'
 
+gem 'cancan'
+
 gem 'paperclip'
 
 gem 'fancybox2-rails'
@@ -32,4 +34,6 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+
+gem 'rubyzip'
 

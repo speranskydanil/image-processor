@@ -1,7 +1,7 @@
 - @sort = params[:sort] || 'name'
 - @direction = params[:direction] || 'asc'
 
-- nodes = node.children.with_pages_count.includes(:status).reorder("#{@sort} #{@direction}")
+- nodes = node.children.includes(:status).reorder("#{@sort} #{@direction}")
 - nodes = nodes.page(params[:page]).per(params[:per_page] || @project.default_per_page)
 
 - pages = node.pages
@@ -15,21 +15,31 @@
     %thead
       %tr
         %th #
-        %th= sortable t('nodes.name'),        'name',                   @sort, @direction
-        %th= sortable t('nodes.description'), 'description',            @sort, @direction
-        %th= sortable t('nodes.status'),      'node_statuses.position', @sort, @direction
-        %th= sortable t('nodes.created_at'),  'created_at',             @sort, @direction
-        %th= sortable t('nodes.pages_count'), 'pages_count',            @sort, @direction
+        %th= sortable t('nodes.name'),                       'name',                       @sort, @direction
+        %th= sortable t('nodes.description'),                'description',                @sort, @direction
+        %th= sortable t('nodes.status'),                     'node_statuses.position',     @sort, @direction
+        %th= sortable t('nodes.created_at'),                 'created_at',                 @sort, @direction
+        %th= sortable t('nodes.pages_total'),                'pages_total',                @sort, @direction
+        %th= sortable t('nodes.pages_processed_total'),      'pages_processed_total',      @sort, @direction
+        %th= sortable t('nodes.pages_unprocessed_total'),    'pages_unprocessed_total',    @sort, @direction
+        %th= sortable t('nodes.children_total'),             'children_total',             @sort, @direction
+        %th= sortable t('nodes.children_processed_total'),   'children_processed_total',   @sort, @direction
+        %th= sortable t('nodes.children_unprocessed_total'), 'children_unprocessed_total', @sort, @direction
 
     %tbody
       - nodes.each_with_index do |node, i|
         %tr
           %td.c1= offset + i + 1
-          %td.c3= link_to node.name, node
-          %td.c4= node.description
-          %td.c5= node.status.name
-          %td.c6= node.created_at.to_date
-          %td.c7= node.pages.length
+          %td.c2= link_to node.name, node
+          %td.c3= node.description
+          %td.c4= node.status.name
+          %td.c5= node.created_at.to_date
+          %td.c6= node.pages_total
+          %td.c7= node.pages_processed_total
+          %td.c8= node.pages_unprocessed_total
+          %td.c9= node.children_total
+          %td.c10= node.children_processed_total
+          %td.c11= node.children_unprocessed_total
 
   = render 'shared/pagination_bar', objects: nodes
 

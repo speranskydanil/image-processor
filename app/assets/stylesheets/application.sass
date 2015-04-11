@@ -1,12 +1,15 @@
-//= require fancybox
-//= require jquery.ui.all
-//= require jQuery-File-Upload/css/jquery.fileupload.css
-//= require jQuery-File-Upload/css/jquery.fileupload-ui.css
-//= require jquery.Jcrop
-//= require rotator-app
+//= require libs
 
-@import 'bootstrap'
+@import 'base/vars'
+@import 'liquid/vars'
 
-@import 'shared/application'
-@import 'classic/application'
+@import 'libs_sass'
+
+@import 'base/app'
+@import 'liquid/app'
+
+.navbar-default
+  display: inline-block
+  width: auto
+  max-width: none
 

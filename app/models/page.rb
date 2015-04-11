@@ -1,5 +1,3 @@
-include Process
-
 def spawn_wait(cmd)
   pid = Process.spawn(cmd)
   Process.wait(pid)
@@ -12,7 +10,7 @@ class Page < ActiveRecord::Base
 
   validates :node_id, :position, :image, presence: true
 
-  default_scope { order('position asc') }
+  default_scope { order(position: :asc) }
 
   after_create :move_to_the_end, :save_raw
 
@@ -23,6 +21,10 @@ class Page < ActiveRecord::Base
   def save_raw
     self.raw = File.open(self.image.path) unless self.raw.exists?
     self.save
+  end
+
+  def path
+    Rails.root + "public/system/pages/#{node_id}/#{id}"
   end
 
   # paperclip
@@ -57,7 +59,7 @@ class Page < ActiveRecord::Base
 
     hash_secret: 'd0206fbc28efed440e96cdaf4c91c715'
 
-  validates_attachment_content_type :image, content_type: %w(image/jpeg image/jpg image/png)
+  validates_attachment_content_type :image, content_type: %w(image/jpeg image/jpg image/png image/tiff)
 
   # helpers
 
@@ -95,7 +97,7 @@ class Page < ActiveRecord::Base
 
     image.reprocess!
 
-    update_attribute :status, 'free'
+    update_attributes status: 'free', processed: true
   end
 
   def cancel
@@ -107,7 +109,7 @@ class Page < ActiveRecord::Base
     self.image = File.open(self.raw.path)
     self.save
 
-    update_attribute :status, 'free'
+    update_attributes status: 'free', processed: false
   end
 
   def duplicate
@@ -164,6 +166,10 @@ class Page < ActiveRecord::Base
 
   def title
     "#{I18n.t('pages.page')} #{siblings.index(self) + 1}"
+  end
+
+  def index_number
+    node.pages.index(self) + 1
   end
 end
 

@@ -1,0 +1,58 @@
+@mixin border-radius($radius)
+  -webkit-border-radius: $radius
+  -moz-border-radius: $radius
+  -ms-border-radius: $radius
+  -o-border-radius: $radius
+  border-radius: $radius
+
+@mixin border-tl-radius($radius)
+  -webkit-border-top-left-radius: $radius
+  -moz-border-radius-topleft: $radius
+  -ms-border-top-left-radius: $radius
+  -o-border-top-left-radius: $radius
+  border-top-left-radius: $radius
+
+@mixin border-tr-radius($radius)
+  -webkit-border-top-right-radius: $radius
+  -moz-border-radius-topright: $radius
+  -ms-border-top-right-radius: $radius
+  -o-border-top-right-radius: $radius
+  border-top-right-radius: $radius
+
+@mixin border-bl-radius($radius)
+  -webkit-border-bottom-left-radius: $radius
+  -moz-border-radius-bottomleft: $radius
+  -ms-border-bottom-left-radius: $radius
+  -o-border-bottom-left-radius: $radius
+  border-bottom-left-radius: $radius
+
+@mixin border-br-radius($radius)
+  -webkit-border-bottom-right-radius: $radius
+  -moz-border-radius-bottomright: $radius
+  -ms-border-bottom-right-radius: $radius
+  -o-border-bottom-right-radius: $radius
+  border-bottom-right-radius: $radius
+
+@mixin box-shadow($style, $alpha)
+  box-shadow: $style rgba(0, 0, 0, $alpha)
+  -webkit-box-shadow: $style rgba(0, 0, 0, $alpha)
+  -moz-box-shadow: $style rgba(0, 0, 0, $alpha)
+
+@mixin shadow($style)
+  box-shadow: nth($style, 1) rgba(0, 0, 0, nth($style, 2))
+  -webkit-box-shadow: nth($style, 1) rgba(0, 0, 0, nth($style, 2))
+  -moz-box-shadow: nth($style, 1) rgba(0, 0, 0, nth($style, 2))
+
+@mixin box-sizing($style)
+  -moz-box-sizing: $style
+  -webkit-box-sizing: $style
+  -o-box-sizing: $style
+  -ms-box-sizing: $style
+  box-sizing: $style
+
+@mixin monospace
+  font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace
+
+.monospace
+  @include monospace
+

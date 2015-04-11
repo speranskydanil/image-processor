@@ -1,0 +1,24 @@
+- content_for :title, title(t('roles.roles'), @role.name)
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb link_to t('roles.roles'), roles_path
+  - add_crumb @role.name
+
+  = get_crumbs
+
+%p
+  %b #{ t('roles.name') }:
+  = @role.name
+
+%b #{ t('roles.users') }:
+
+%ul
+  - @role.users.each do |user|
+    %li= link_to user.email, user
+
+%br
+
+= btn_to t('edit'), edit_role_path(@role)
+= btn_to t('back'), roles_path
+

@@ -6,7 +6,14 @@
 
   = get_crumbs
 
+= render 'links', node: @node
+
 %h2= t('nodes.edit')
 
-= render 'form'
+= render 'form', node: @node
+
+= form_for(@node, url: generate_archive_node_path, html: { style: 'display: inline-block;' }) do |f|
+  = f.submit value: t('nodes.generate_archive'), class: 'btn btn-default'
+= form_for(@node, url: remove_archive_node_path, html: { style: 'display: inline-block;' }) do |f|
+  = f.submit value: t('nodes.remove_archive'), class: 'btn btn-default'
 

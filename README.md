@@ -2,7 +2,7 @@
 
 It is a simple rails application for processing image collections.
 
-### Features
+## Features
 
 * authorization, managing users
 * creating hierarchy of nodes (like directories) with names, descriptions, statuses
@@ -13,21 +13,21 @@ It is a simple rails application for processing image collections.
 * canceling changes
 * nice interface for viewing and processing image collections
 
-### Dependencies
+## Dependencies
 
 * MySQL
 * ImageMagick
 
-### Quick Start
+## Quick Start
 
-* git clone git@github.com:speranskydanil/image-processor.git
+* git clone https://github.com/speranskydanil/image-processor.git
 * cp config/database.example.yml config/database.yml; vim config/database.yml
 * bin/rebuild -e p
 * rails server
 
 Default login and password (seeds.rb): name@company.com passwordexample
 
-### Rebuilding
+## Rebuilding
 
     bin/rebuild -h
 
@@ -42,13 +42,13 @@ Default login and password (seeds.rb): name@company.com passwordexample
                          m - bundle exec rake db:schema:load
                          s - bundle exec rake db:seed
                          p - RAILS_ENV=production bundle exec rake assets:precompile
-                         j - [ -e bin/delayed_job ] && bin/delayed_job restart
+                         j - [ -e bin/delayed_job ] && RAILS_ENV=production bin/delayed_job restart
                          Example: dcms
 
     -e, --except E       Except flags for the rebuild script
                          See documentation for --flags
 
-### Updating
+## Updating
 
     bin/update -h
 
@@ -61,17 +61,17 @@ Default login and password (seeds.rb): name@company.com passwordexample
                          b - bundle install
                          m - bundle exec rake db:migrate
                          p - RAILS_ENV=production bundle exec rake assets:precompile
-                         j - [ -e bin/delayed_job ] && bin/delayed_job restart
+                         j - [ -e bin/delayed_job ] && RAILS_ENV=production bin/delayed_job restart
                          Example: gm
 
     -e, --except E       Except flags for the update script
                          See documentation for --flags
 
-### Add Test Data
+## Add Test Data
 
     rake atd[path] # where path -- path to a directory with images
 
-### Screens
+## Screenshots
 
 ![screen](https://raw.github.com/speranskydanil/image-processor/master/screens/1.png)
 

@@ -13,18 +13,23 @@ en:
 
   auth:
     access_denied: "Sorry, you don't have access to that page."
-    sign_in: 'Sign in'
     sign_out: 'Sign out'
     recaptcha_error: 'Incorrectly typed the code from the image'
 
   admin:
-    panel: 'Admin Panel'
+    title: 'Administration'
     users: 'Users'
+    roles: 'Roles'
     statistics: 'Statistics'
     mail_to_admin: 'Mail to admin'
+    update_counters: 'Update counters'
+    jobs: 'Backgound tasks'
 
   users:
     users: 'Users'
+    help: 'Users may belong to one or several roles and may have subscriptions. Roles determine which actions are available for users. With subscriptions it is possible to provide access to viewing only certain nodes for a definite time period.'
+    no_record: 'There are no users yet.'
+    roles: 'Roles'
     email: 'Email'
     password: 'Password'
     password_confirmation: 'Password confirmation'
@@ -33,8 +38,21 @@ en:
     created: 'User was successfully created.'
     updated: 'User was successfully updated.'
 
+  roles:
+    roles: 'Roles'
+    help: 'Roles determine which actions are available for users. Roles have "rights", changing them you change available actions.'
+    no_record: 'There are no roles yet.'
+    name: 'Name'
+    users: 'Users'
+    new: 'New role'
+    edit: 'Edit role'
+    created: 'Role was successfully created.'
+    updated: 'Role was successfully updated.'
+
+  rights:
+    rights: 'Rights'
+
   nodes:
-    node: 'Node'
     nodes: 'Nodes'
     index_help: 'This is a new collection. Try to create the first node.'
 
@@ -46,7 +64,12 @@ en:
     status: 'Status'
     n_sided: 'N-sided'
     created_at: 'Created at'
-    pages_count: 'Pages count'
+    pages_total: 'Pages'
+    pages_processed_total: 'Processed pages'
+    pages_unprocessed_total: 'Unprocessed pages'
+    children_total: 'Subdirectories'
+    children_processed_total: 'Processed subdirectories'
+    children_unprocessed_total: 'Unprocessed subdirectories'
 
     edit: 'Edit node'
 
@@ -57,10 +80,6 @@ en:
     cancel: 'Cancel all changes'
     duplicate: 'Duplicate all pages'
 
-    generate_zip: 'Generate zip'
-    generating_zip: 'Generating zip'
-    download_zip: 'Download zip'
-
     new: 'New node'
     destroy_nodes: 'Delete all nodes'
     destroy_pages: 'Delete all pages'
@@ -69,6 +88,11 @@ en:
 
     created: 'Node was successfully created.'
     updated: 'Node was successfully updated.'
+
+    generate_archive: 'Generate archive'
+    remove_archive: 'Remove archive'
+    download_archive: 'Download archive'
+    archive_will_be_generated: 'Archive will be generated. The button for downloading will apppear later.'
 
   pages:
     page: 'Page'
@@ -93,9 +117,14 @@ en:
 
   statistics:
     title: 'Statistics'
-    number_of_nodes: 'Number of nodes'
-    number_of_pages: 'Number of pages'
-    disk_usage_for_images: 'Disk usage for images'
+    help: 'With this interface you may learn number of different objects in the system and disk space usage.'
+    type: 'Type'
+    count: 'Count'
+    space_usage: 'Space usage'
+    total_space_usage: 'Total'
+    nodes: 'Nodes'
+    pages: 'Pages'
+    generated_zips: 'Generated zips'
     calculating: 'Calculating'
 
   mail_to_admin:
@@ -103,4 +132,31 @@ en:
     help: 'Write to the administrator if you have a problem.'
     message: 'Message'
     created: 'Message was sent'
+
+  jobs:
+    title: 'Background tasks'
+    help: 'With this interface you may overlook background tasks, delete if needed, and change task priorities. The priority affects order of execution. The lower the value, the higher the priority, the more quickly task will be executed.'
+    no_record: 'There are no background tasks yet.'
+    status: 'Status'
+    priority: 'Priority'
+    run_at: 'Run at'
+    user: 'User'
+    task: 'Task'
+    handler: 'Handler'
+    last_error: 'Last error'
+    working: 'Working'
+    failed: 'Failed'
+    enqueued: 'Enqueued'
+    node: 'node'
+    page: 'page'
+    of_node: 'of node'
+    update_pages_positions: 'Update order of pages for the'
+    generate_archive: 'Generate archive for the'
+    cancel_action: 'Cancel changes for the'
+    process_action: 'Process the'
+    insert: 'Insert an image after the'
+    update_counters: 'Update_counters for'
+    total: 'Total number of background tasks'
+    errors: 'Number of failed background tasks'
+    destroy_all: 'Delete all background jobs'
 

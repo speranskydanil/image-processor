@@ -7,9 +7,7 @@
 
 = render 'compass', node: @node
 
-- length = @node.name.to_s.length
-- cls = length < 80 ? 'large' : length < 160 ? 'medium' : 'small'
-%h1(class=cls)= @node.name
+= node_title(@node)
 
 = render 'links', node: @node
 

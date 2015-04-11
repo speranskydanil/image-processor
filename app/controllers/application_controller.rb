@@ -18,6 +18,26 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }
   end
 
+  before_filter :mailer_default_url_options
+
+  def mailer_default_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    access_denied
+  end
+
+  def access_denied
+    flash[:error] = I18n.t('auth.access_denied')
+
+    if current_user
+      redirect_to root_url
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
   before_filter :store_redirect_to_path
 
   def store_redirect_to_path
@@ -30,23 +50,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :check_for_anonymous_access
-
-  def check_for_anonymous_access
-    unless %w(sessions devise/passwords).include? params[:controller]
-      unless current_user
-        flash[:error] = I18n.t('auth.access_denied')
-        redirect_to new_user_session_path
-      end
-    end
-  end
-
   def after_sign_in_path_for(resource)
     session[:return_to] || root_url
   end
 
   def after_sign_out_path_for(resource)
     session[:return_to] || root_url
+  end
+
+  before_filter :check_for_anonymous_access
+
+  def check_for_anonymous_access
+    unless %w(sessions devise/passwords).include? params[:controller]
+      unless current_user
+        access_denied
+      end
+    end
   end
 
   def root

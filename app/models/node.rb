@@ -1,8 +1,10 @@
+require 'zip'
+
 class Node < ActiveRecord::Base
   before_destroy :delete_pages
 
   def delete_pages
-    pathes = pages.map { |p| p.image.path.split('/')[0..-4].join('/') }.compact.join(' ')
+    pathes = pages.map(&:path).join(' ')
     `rm -R #{pathes}`
     Page.delete_all id: page_ids
   end
@@ -16,13 +18,7 @@ class Node < ActiveRecord::Base
 
   validates :name, presence: true
 
-  default_scope { order('name asc') }
-
-  scope :with_pages_count, -> do
-    select('nodes.*, count(ps.id) AS pages_count')
-      .joins('left outer join pages ps on nodes.id = ps.node_id')
-      .group('nodes.id')
-  end
+  default_scope { order(name: :asc) }
 
   before_create :set_status
 
@@ -84,31 +80,68 @@ class Node < ActiveRecord::Base
     end
   end
 
-  def generate_zip filename
-    dir = Rails.root.join("public/system/nodes/#{id}/zip")
-    FileUtils.mkdir_p dir
+  has_attached_file :archive
+  validates_attachment_content_type :archive, content_type: %w(application/zip)
 
-    tmp_dir = dir.join(filename)
-    FileUtils.rm_rf tmp_dir
-    FileUtils.mkdir_p tmp_dir
+  def generate_archive
+    name = "node_#{id}_#{SecureRandom.hex}.zip"
+    path = Rails.root.join('public/system', name)
 
-    file = dir.join(filename + '.zip')
-    FileUtils.rm_f file
-
-    pages.each do |page|
-      FileUtils.cp page.image.path(:original), tmp_dir.join(page.position.to_s + '.jpg')
+    Zip::File.open(path, Zip::File::CREATE) do |zipfile|
+      pages.each do |page|
+        zipfile.add("#{page.position}.jpg", page.image.path)
+      end
     end
 
-    `cd #{dir}; zip -r #{filename}.zip #{filename}`
-    FileUtils.rm_rf tmp_dir
-  end
-
-  def remove_zip filename
-    FileUtils.rm_f Rails.root.join("public/system/nodes/#{id}/zip").join(filename + '.zip')
+    self.archive = File.open(path)
+    self.save
+    File.delete(path)
   end
 
   def to_param
     "#{id} #{name}".parameterize
+  end
+
+  Counter = Struct.new 'Counter',
+                       :pages_total,
+                       :pages_processed_total,
+                       :pages_unprocessed_total,
+                       :children_total,
+                       :children_processed_total,
+                       :children_unprocessed_total
+
+  def update_counters
+    counter = Counter.new pages.count,
+                          processed_pages.count,
+                          unprocessed_pages.count,
+                          children.count,
+                          processed_children.count,
+                          unprocessed_children.count
+
+    children.map(&:update_counters).each do |c|
+      counter.pages_total             += c.pages_total
+      counter.pages_processed_total   += c.pages_processed_total
+      counter.pages_unprocessed_total += c.pages_unprocessed_total
+    end
+
+    update counter.to_h
+    counter
+  end
+
+  def processed_children
+    children.where(status_id: [5, 6])
+  end
+
+  def unprocessed_children
+    children.where(status_id: [1, 2, 3, 4])
+  end
+
+  def processed_pages
+    pages.where(processed: true)
+  end
+
+  def unprocessed_pages
+    pages.where(processed: false)
   end
 end
 

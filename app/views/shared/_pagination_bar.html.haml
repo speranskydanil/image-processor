@@ -1,11 +1,12 @@
 - if objects.total_count > @project.per_page.split(';').map(&:to_i).min
-  .pagination
+  .pagination-wr
     = paginate objects
 
-    .per_page
+    .per-page
       - options = @project.per_page.split(';').map { |t| [t, t] }
 
-      = select_tag 'per_page', options_for_select(options, objects.limit_value)
+      = select_tag 'per_page', options_for_select(options, objects.limit_value),
+        class: 'form-control', style: 'display: inline-block;'
       = t('kaminari.per_page')
 
     .clear

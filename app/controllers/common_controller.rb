@@ -1,33 +1,28 @@
 class CommonController < ApplicationController
+  authorize_resource class: false
+
+  def update_counters
+    Node.root.delay.update_counters
+    redirect_to Node.root
+  end
+
   def statistics
+    @disk_usage_for_zips = Node.where('archive_file_name is not null').map { |n| `du #{n.archive.path}`.to_i }.reduce(&:+).to_i
   end
 
   def disk_usage_for_images
     pages_count = Page.count
-    approx = 0.0
+    approx = 0
 
-    if pages_count == 0
-      render text: "~ #{approx.round(2)} #{dim}"
-      return
+    if pages_count > 0
+      20.times do
+        page = Page.where('id >= ?', rand(pages_count)).limit(1).first
+        path = page.raw.path.split('original').first
+        approx += `du #{path}`.split("\n").last.split(' ').first.to_i / 10 * pages_count
+      end
     end
 
-    20.times do
-      page = Page.where('id >= ?', rand(pages_count)).limit(1).first
-      path = page.raw.path.split('original').first
-      approx += `du #{path}`.split("\n").last.split(' ').first.to_i / 10 * pages_count
-    end
-
-    if approx > 1e9
-      approx, dim = approx / 1e9, 'TB'
-    elsif approx > 1e6
-      approx, dim = approx / 1e6, 'GB'
-    elsif approx > 1e3
-      approx, dim = approx / 1e3, 'MB'
-    else
-      dim = 'KB'
-    end
-
-    render text: "~ #{approx.round(2)} #{dim}"
+    render text: approx
   end
 
   def new_mail_to_admin

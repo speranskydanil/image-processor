@@ -7,28 +7,47 @@
     - unless node.pages.empty?
       = image_tag(node.pages.first.image.url(:x_small))
 
-    %table
+    %table.table.table-condensed.table-striped
       %tbody
         %tr
           %td.first= t('nodes.name')
           %td= node.name
 
-        %tr.not-first
+        %tr
           %td.first= t('nodes.description')
           %td= node.description
 
-        %tr.not-first
+        %tr
           %td.first= t('nodes.status')
           %td= node.status.name
 
-        %tr.not-first
+        %tr
           %td.first= t('nodes.created_at')
           %td= node.created_at
 
-        - unless node.pages.empty?
-          %tr.not-first
-            %td.first= t('nodes.pages_count')
-            %td= node.pages.count
+        %tr
+          %td.first= t('nodes.pages_total')
+          %td= node.pages_total
+
+        %tr
+          %td.first= t('nodes.pages_processed_total')
+          %td= node.pages_processed_total
+
+        %tr
+          %td.first= t('nodes.pages_unprocessed_total')
+          %td= node.pages_unprocessed_total
+
+        %tr
+          %td.first= t('nodes.children_total')
+          %td= node.children_total
+
+        %tr
+          %td.first= t('nodes.children_processed_total')
+          %td= node.children_processed_total
+
+        %tr
+          %td.first= t('nodes.children_unprocessed_total')
+          %td= node.children_unprocessed_total
 
     .clear
 

@@ -1,0 +1,17 @@
+- content_for :title, title(t('roles.roles'), @role.name, t('roles.edit'))
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb link_to t('roles.roles'), roles_path
+  - add_crumb link_to @role.name, @role
+  - add_crumb t('roles.edit')
+
+  = get_crumbs
+
+%h2= t('roles.edit')
+
+= render 'form'
+
+= btn_to t('show'), @role
+= btn_to t('back'), roles_path
+

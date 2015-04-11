@@ -13,33 +13,56 @@
 
   %body#body.body
     .header
-      .logo
-        = link_to image_tag('logo.png'), main_path
-
       - if user_signed_in?
-        .admin
-          %h3= t('admin.panel')
+        %nav.navbar.navbar-default.compact
+          .container-fluid
+            %ul.nav.navbar-nav
+              %li
+                = link_to main_path do
+                  %span.glyphicon.glyphicon-home
+                  = t('main')
+              %li
+                = link_to roles_path do
+                  %span.glyphicon.glyphicon-briefcase
+                  = t('admin.roles')
+              %li
+                = link_to users_path do
+                  %span.glyphicon.glyphicon-user
+                  = t('admin.users')
+              %li
+                = link_to statistics_path do
+                  %span.glyphicon.glyphicon-stats
+                  = t('admin.statistics')
+              %li
+                = link_to new_mail_to_admin_path do
+                  %span.glyphicon.glyphicon-envelope
+                  = t('admin.mail_to_admin')
+              %li
+                = link_to update_counters_path, method: :post do
+                  %span.glyphicon.glyphicon-pencil
+                  = t('admin.update_counters')
+              %li.job-bar
+                = link_to jobs_path do
+                  %span.glyphicon.glyphicon-tasks
+                  = t('admin.jobs')
 
-          = link_to t('main'), main_path
-          = link_to t('admin.users'), users_path
-          = link_to t('admin.statistics'), statistics_path
-          = link_to t('admin.mail_to_admin'), new_mail_to_admin_path
+                  %span.badge.job-total{ rel: 'tooltip', title: t('jobs.total'), 'data-placement' => 'bottom' }
+                    = Delayed::Job.count
+
+                  %span.badge.job-errors{ rel: 'tooltip', title: t('jobs.errors'), 'data-placement' => 'bottom' }
+                    = Delayed::Job.where('last_error is not NULL').count
 
       .sidebar
-        - if user_signed_in?
-          %b= current_user.email
-          |
-          = link_to t('auth.sign_out'), destroy_user_session_path, method: :delete
+        .auth
+          - if user_signed_in?
+            %b= current_user.email
+            %span.separator /
+            = link_to t('auth.sign_out'), destroy_user_session_path, method: :delete
 
-          %hr
-
+        .lang
           = link_to_unless I18n.locale == :en, 'English', params.merge(locale: :en)
-          |
+          %span.separator /
           = link_to_unless I18n.locale == :ru, 'Русский', params.merge(locale: :ru)
-
-          %hr
-
-          = link_to "#{t('number_of_delayed_jobs')}: #{Delayed::Job.count}", '/en/delayed_job'
 
       .clear
 
@@ -64,9 +87,10 @@
 
     .footer
       .version
-        version &nbsp1.1.2
-        %br
-        revision 14-06-04
+        - cache('version', expires_in: 10.minutes) do
+          version&nbsp; 2.1<small>.#{ `git log --pretty=format:'%s' | grep -n -m 1 'bump version' | cut -d : -f1` }</small>
+          %br
+          revision #{ `git log --date=short --pretty=format:'%ad' | head -n 1` }
 
       .clear
 

@@ -1,0 +1,96 @@
+- content_for :title, t('jobs.title')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('jobs.title')
+
+  = get_crumbs
+
+%h2= t('jobs.title')
+
+.help= t('jobs.help')
+
+- if @jobs.count == 0
+  .notice= t('jobs.no_record')
+- else
+  = btn_to_del t('jobs.destroy_all'), destroy_all_jobs_path
+
+  %br
+  %br
+
+  = render 'shared/pagination_bar', objects: @jobs, mark: 'pp-jobs'
+
+  - offset = (@jobs.current_page - 1) * @jobs.limit_value
+
+  %table.table.table-striped.jobs
+    %thead
+      %tr
+        %th #
+        %th id
+        %th= t('jobs.status')
+        %th= t('jobs.priority')
+        %th= t('jobs.run_at')
+        %th= t('jobs.user')
+        %th= t('jobs.task')
+        %th= t('jobs.handler')
+        %th= t('jobs.last_error')
+        %th
+
+    %tbody
+      - @jobs.sort_by{ |j| j.locked_at ? -1 : j.priority }.each_with_index do |job, i|
+        - handler = YAML.load(job.handler) rescue Object.new
+
+        %tr
+          %td= offset + i + 1
+          %td= job.id
+          %td
+            - if job.last_error
+              = t('jobs.failed')
+            - elsif job.locked_at
+              = t('jobs.working')
+            - else
+              = t('jobs.enqueued')
+          %td
+            = form_tag(job_path(job), method: :patch, class: 'form-inline', style: 'display: inline-block') do
+              = text_field_tag 'job[priority]', job.priority, class: 'form-control'
+              = submit_tag t('save'), class: 'btn btn-default'
+
+          %td= job.run_at
+          %td
+            - if job.user
+              = link_to job.user.email, job.user
+          %td
+            - if handler.respond_to? :method_name
+              = t("jobs.#{handler.method_name}")
+
+              - if handler.object.is_a? Node
+                %nobr
+                  = link_to "#{t('jobs.node')} ##{handler.object.id}", handler.object, title: handler.object.name
+              - else
+                %nobr
+                  = link_to "#{t('jobs.page')} ##{handler.object.index_number} #{t('jobs.of_node')} ##{handler.object.node.id}", handler.object
+          %td
+            .spoiler
+              %a(href="#")
+                %span(class="glyphicon glyphicon-chevron-right")
+                = t('jobs.handler')
+              %pre.wrapper= job.handler
+          %td
+            - if job.last_error
+              .spoiler
+                %a(href="#")
+                  %span(class="glyphicon glyphicon-chevron-right")
+                  = t('jobs.last_error')
+                %pre.wrapper
+                  = preserve do
+                    %small
+                      = job.last_error.strip
+          %td= link_to t('destroy'), job_path(job.id), method: :delete, data: { confirm: t('are_you_sure') }
+
+  = render 'shared/pagination_bar', objects: @jobs, mark: 'pp-jobs'
+
+:coffee
+  setTimeout ->
+    window.location.replace(window.location.href)
+  , 5 * 60 * 1000
+

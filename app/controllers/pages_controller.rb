@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  authorize_resource
+
   before_filter :redirect_if_page_is_in_processing, except: %w(show create process_form)
 
   def redirect_if_page_is_in_processing

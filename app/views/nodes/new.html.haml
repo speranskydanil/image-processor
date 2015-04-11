@@ -6,7 +6,10 @@
 
   = get_crumbs
 
+- if @node.parent
+  = render 'links', node: @node.parent
+
 %h2= t('nodes.new')
 
-= render 'form'
+= render 'form', node: @node
 

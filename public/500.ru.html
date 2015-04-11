@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>We're sorry, but something went wrong (500)</title>
+
+    <link href="/bootstrap.css" rel="stylesheet">
+
+    <style>
+body {
+  background-color: #ddd;
+  background-image: url(/bg/default.png);
+}
+
+.wrapper {
+  width: 720px;
+  margin: 0px auto;
+}
+
+.wrapper > * {
+  margin: 0px 0px 20px 0px;
+}
+    </style>
+
+    <script>
+setTimeout(function () {
+  document.location.href = '/';
+}, 500000)
+    </script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <span style="font-size: 108px">500</span>
+      <h1>Мы сожалеем, но что-то пошло не так. Свяжитесь с администратором.</h1>
+    </div>
+  </body>
+</html>
+

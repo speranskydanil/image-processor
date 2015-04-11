@@ -3,22 +3,22 @@
 
   .form-group
     = f.label t('users.email')
-    = f.text_field :email, autocomplete: 'off', class: 'form-control'
+    = f.text_field :email, autocomplete: 'off', class: 'form-control md'
 
   .form-group
     = f.label t('users.password')
+    = f.password_field :password, autocomplete: 'off', class: 'form-control md'
 
     - unless @user.new_record?
-      %span.help-inline (#{t('devise.views.leave_blank')})
-
-    = f.password_field :password, autocomplete: 'off', class: 'form-control'
+      %span.help-inline= t('devise.views.leave_blank')
 
   .form-group
     = f.label t('users.password_confirmation')
-    = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control'
+    = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control md'
+
+  .form-group
+    = f.label t('users.roles')
+    = f.collection_select :role_ids, Role.all, :id, :name, {}, multiple: true, class: 'form-control md'
 
   = f.submit class: 'btn btn-default'
-
-  %br
-  %br
 

@@ -1,12 +1,23 @@
 $(document).ready ->
   # bootstrap
 
-  $('a[rel=popover]').popover()
-  $('a[rel=tooltip]').tooltip()
+  $('*[rel*=popover]').popover()
+
+  $('body').tooltip
+    selector: '*[rel*=tooltip]'
+    delay: 200
 
   $('.nav-tabs a').click (e) ->
     e.preventDefault()
     $(@).tab 'show'
+
+  # fancybox
+
+  $('.fancybox').fancybox
+    helpers:
+      thumbs:
+        width: 82,
+        height: 123
 
   # sortable
 
@@ -23,13 +34,9 @@ $(document).ready ->
 
       return helper
 
-  # fancybox
+  # chained node select
 
-  $('.fancybox').fancybox
-    helpers:
-      thumbs:
-        width: 82,
-        height: 123
+  $('.chained-node-select').chained_node_select()
 
   # scroll-up
 
@@ -50,12 +57,27 @@ $(document).ready ->
 
   # pagination
 
-  $('.pagination .per_page select').change ->
+  $('.pagination-wr .per-page select').change ->
     location = window.location.toString()
     location = $.url(location).unset('page').set('per_page', $(@).val()).toString()
     window.location.replace location
 
   # recaptcha
 
-  $('#recaptcha_response_field').css 'width': '288px', 'border-color': '#ccc'
+  $('#recaptcha_response_field')
+    .attr 'style', ''
+    .css 'width', '288px'
+
+  setTimeout ->
+    $('#recaptcha_response_field')
+      .attr 'style', ''
+      .css 'width', '288px'
+  , 200
+
+  # spoiler
+
+  $('.spoiler > a').click (e) ->
+    e.preventDefault()
+    $(@).parent().toggleClass('active')
+    $(@).find('span').toggleClass('glyphicon-chevron-right glyphicon-chevron-down')
 

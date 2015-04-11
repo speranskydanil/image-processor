@@ -1,0 +1,28 @@
+= form_for(@role) do |f|
+  = render 'shared/error_explanation', object: @role
+
+  .form-group
+    = f.label t('roles.name')
+    = f.text_field :name, class: 'form-control'
+
+  %h3= t('rights.rights')
+
+  .help= t('roles.help')
+
+  - Right.instances.group_by(&:group).each do |name, rights|
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th= t("rights.#{name}")
+
+      %tbody
+        - rights.each do |right|
+          %tr
+            %td
+              .checkbox
+                %label
+                  = check_box_tag 'role[right_ids][]', right.id, @role.rights.include?(right)
+                  = t("rights.#{right.name}")
+
+  = f.submit class: 'btn btn-default'
+

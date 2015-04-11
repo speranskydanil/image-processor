@@ -1,14 +1,16 @@
-.nodes-links
-  = btn_to t('edit'), edit_node_path(node)
-  = btn_to t('nodes.upload_pages.title'), upload_pages_node_path(node)
-  = btn_to t('nodes.cancel'), cancel_node_path(node), confirm: t('are_you_sure'), method: :put
-  = btn_to t('nodes.duplicate'), duplicate_node_path(node), confirm: t('are_you_sure'), method: :put
-
-  = link_to t('nodes.generate_zip'), '', class: 'nodes-generate-zip btn btn-default',
-    data: { generating_zip: t('nodes.generating_zip'), download_zip: t('nodes.download_zip') }
-
-  = btn_to t('nodes.new'), new_node_path(parent_id: node.id)
-  = btn_to_del t('nodes.destroy_nodes'), destroy_children_node_path(node)
-  = btn_to_del t('nodes.destroy_pages'), destroy_pages_node_path(node)
-  = btn_to_del t('destroy'), node
+%nav.navbar.navbar-default.compact
+  .container-fluid
+    %ul.nav.navbar-nav
+      %li= link_to t('edit'), edit_node_path(node)
+      %li= link_to t('nodes.upload_pages.title'), upload_pages_node_path(node)
+      %li= link_to t('nodes.cancel'), cancel_node_path(node), method: :put, data: { confirm: t('are_you_sure') }
+      %li= link_to t('nodes.duplicate'), duplicate_node_path(node), method: :put, data: { confirm: t('are_you_sure') }
+      - if can? :download_archive, node
+        %li= link_to t('nodes.download_archive'), node.archive.url
+      %li= link_to t('nodes.new'), new_node_path(parent_id: node.id)
+      %li= link_to t('nodes.destroy_nodes'), destroy_children_node_path(node),
+        method: :delete, data: { confirm: t('are_you_sure') }
+      %li= link_to t('nodes.destroy_pages'), destroy_pages_node_path(node),
+        method: :delete, data: { confirm: t('are_you_sure') }
+      %li= link_to t('destroy'), node, method: :delete, data: { confirm: t('are_you_sure') }
 

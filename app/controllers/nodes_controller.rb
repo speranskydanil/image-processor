@@ -1,4 +1,6 @@
 class NodesController < ApplicationController
+  authorize_resource
+
   def index
     redirect_to Node.root if Node.root
   end
@@ -68,14 +70,17 @@ class NodesController < ApplicationController
     redirect_to @node
   end
 
-  def generate_zip
+  def generate_archive
     @node = Node.find(params[:id])
+    @node.delay(priority: 15, user: current_user).generate_archive
+    redirect_to @node, notice: I18n.t('nodes.archive_will_be_generated')
+  end
 
-    filename = SecureRandom.hex
-    @node.delay.generate_zip filename
-    @node.delay(run_at: 60.minutes.from_now).remove_zip filename
-
-    render text: "/system/nodes/#{@node.id}/zip/#{filename}.zip"
+  def remove_archive
+    @node = Node.find(params[:id])
+    @node.archive = nil
+    @node.save
+    redirect_to @node
   end
 
   def destroy_children
@@ -88,6 +93,22 @@ class NodesController < ApplicationController
     @node = Node.find(params[:id])
     @node.delete_pages
     redirect_to @node
+  end
+
+  def options
+    ancestors = params[:fid].blank? ? [] : Node.find(params[:fid]).ancestors.map(&:id)
+
+    nodes = Node.where(parent_id: params[:pid].blank? ? nil : params[:pid])
+
+    json = nodes.map do |node|
+      {
+        value: node.id,
+        text: node.name,
+        selected: ancestors.include?(node.id)
+      }
+    end
+
+    render json: json
   end
 
   private

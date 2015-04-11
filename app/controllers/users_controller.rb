@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  authorize_resource
+
   def index
     @users = User.all
   end
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @user.destroy unless @user.email == 'admin@inforost.org'
     redirect_to users_url
   end
 

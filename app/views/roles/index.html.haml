@@ -1,0 +1,33 @@
+- content_for :title, t('roles.roles')
+
+- content_for :crumbs do
+  - add_crumb link_to t('main'), main_path
+  - add_crumb t('roles.roles')
+
+  = get_crumbs
+
+%h2= t('roles.roles')
+
+.help= t('roles.help')
+
+- if @roles.empty?
+  .notice= t('roles.no_record')
+- else
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= t('roles.name')
+        %th
+        %th
+        %th
+
+    %tbody
+      - @roles.each do |role|
+        %tr
+          %td= role.name
+          %td= link_to t('show'), role
+          %td= link_to t('edit'), edit_role_path(role)
+          %td= link_to t('destroy'), role, method: :delete, data: { confirm: t('are_you_sure') }
+
+= btn_to t('roles.new'), new_role_path
+

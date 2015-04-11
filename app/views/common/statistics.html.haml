@@ -8,21 +8,67 @@
 
 %h2= t('statistics.title')
 
+.help= t('statistics.help')
+
 %table.table.table-striped
+  %thead
+    %th= t('statistics.type')
+    %th= t('statistics.count')
+    %th= t('statistics.space_usage')
+
   %tbody
     %tr
-      %td= t('statistics.number_of_nodes')
+      %td= t('statistics.nodes')
       %td= Node.unscoped.count
+      %td
 
     %tr
-      %td= t('statistics.number_of_pages')
+      %td= t('statistics.pages')
       %td= Page.unscoped.count
+      %td.disk_usage.disk_usage_for_images= t('statistics.calculating')
 
     %tr
-      %td= t('statistics.disk_usage_for_images')
-      %td.disk_usage_for_images= t('statistics.calculating')
+      %td= t('statistics.generated_zips')
+      %td= Node.unscoped.where('archive_file_name is not null').count
+      %td.disk_usage.disk_usage_for_zips{ 'data-count' => @disk_usage_for_zips }
+
+%b
+  #{ t('statistics.total_space_usage') }:
+  %span.total-space-usage
+
 
 - content_for :javascript do
   :coffee
-    $('.disk_usage_for_images').load '/disk_usage_for_images'
+    approx = (approx) ->
+      approx = parseInt(approx) || 0
+
+      if approx > 1e9
+        approx = approx / 1e9
+        dim = 'TB'
+      else if approx > 1e6
+        approx = approx / 1e6
+        dim = 'GB'
+      else if approx > 1e3
+        approx = approx / 1e3
+        dim = 'MB'
+      else
+        dim = 'KB'
+
+      "~ \#{approx.toFixed(2)} \#{dim}"
+
+    update = ->
+      total = 0
+
+      $('.disk_usage').each ->
+        if $(@).data('count')
+          total += parseInt($(@).data('count'))
+          $(@).html(approx($(@).data('count')))
+
+      $('.total-space-usage').html(approx(total))
+
+    update()
+
+    $.get '/disk_usage_for_images', (r) ->
+      $('.disk_usage_for_images').data('count', r)
+      update()
 

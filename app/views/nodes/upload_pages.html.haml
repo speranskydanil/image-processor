@@ -14,7 +14,7 @@
   = form_for Page.new, html: { multipart: true, class: 'fileupload' } do |f|
     = f.hidden_field :node_id, value: @node.id
 
-    .row.fileupload-buttonbar
+    .fileupload-buttonbar
       .span8
         %span.btn.btn-default.fileinput-button
           %span.glyphicon.glyphicon-plus
@@ -46,7 +46,7 @@
 
     %br
 
-    .row.fileupload-buttonbar
+    .fileupload-buttonbar
       .span8
         %span.btn.btn-default.fileinput-button
           %span.glyphicon.glyphicon-plus

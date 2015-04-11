@@ -9,12 +9,28 @@ module ApplicationHelper
   end
 
   def get_crumbs
-    @crumbs.join(' <span class="arrow">&gt;</span> ').html_safe
+    @crumbs.join(' <span class="arrow glyphicon glyphicon-chevron-right"></span> ').html_safe
   end
 
   def add_crumbs_for_node(node, last_not_active = false)
-    @crumbs = node.ancestors.map { |n| link_to(n.name, n) }.reverse
-    @crumbs[-1] = node.name if last_not_active
+    @crumbs = node.ancestors.map { |n| short_link(n.name, n) }.reverse
+    @crumbs[-1] = short_text(node.name) if last_not_active
+  end
+
+  def short_link(name, object)
+    if name.length > 70
+      link_to truncate(name, length: 70), object, rel: 'tooltip', title: name
+    else
+      link_to name, object
+    end
+  end
+
+  def short_text(text)
+    if text.length > 70
+      content_tag :span, truncate(text, length: 70), rel: 'tooltip', title: text
+    else
+      content_tag :span, text
+    end
   end
 
   def btn_to(*args)
@@ -29,9 +45,9 @@ module ApplicationHelper
 
   def btn_to_del(*args)
     if args.last.is_a?(Hash)
-      args[-1] = { confirm: t('are_you_sure'), method: :delete }.merge(args.last)
+      args[-1] = { method: :delete, data: { confirm: t('are_you_sure') } }.merge(args.last)
     else
-      args << { confirm: t('are_you_sure'), method: :delete }
+      args << { method: :delete, data: { confirm: t('are_you_sure') } }
     end
 
     btn_to *args

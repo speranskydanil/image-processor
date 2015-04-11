@@ -3,7 +3,7 @@ class NodeStatus < ActiveRecord::Base
 
   validates :name, :position, presence: true
 
-  default_scope { order('position asc') }
+  default_scope { order(position: :asc) }
 
   after_create :move_to_the_end
 

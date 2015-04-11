@@ -11,6 +11,12 @@
   %b #{ t('users.email') }:
   = @user.email
 
+%b #{ t('users.roles') }:
+
+%ul
+  - @user.roles.each do |role|
+    %li= role.name
+
 %br
 
 = btn_to t('edit'), edit_user_path(@user)

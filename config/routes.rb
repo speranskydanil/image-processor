@@ -8,13 +8,20 @@ ImageProcessor::Application.routes.draw do
       end
     end
 
+    resources :roles
+
     resources :nodes do
+      collection do
+        get 'options'
+      end
+
       member do
         get 'upload_pages'
         put 'update_pages_positions'
         put 'cancel'
         put 'duplicate'
-        post 'generate_zip'
+        patch 'generate_archive'
+        patch 'remove_archive'
         delete 'destroy_children'
         delete 'destroy_pages'
       end
@@ -36,9 +43,17 @@ ImageProcessor::Application.routes.draw do
     get 'new_mail_to_admin' => 'common#new_mail_to_admin', as: :new_mail_to_admin
     post 'create_mail_to_admin' => 'common#create_mail_to_admin', as: :create_mail_to_admin
 
+    post 'update_counters' => 'common#update_counters', as: :update_counters
+
     root to: 'application#root'
 
     get '/delayed_job' => DelayedJobWeb, anchor: false
+
+    resources :jobs, only: [:index, :update, :destroy] do
+      collection do
+        delete 'destroy_all'
+      end
+    end
   end
 end
 

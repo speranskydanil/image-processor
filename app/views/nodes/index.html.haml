@@ -1,6 +1,7 @@
 - content_for :title, t('nodes.nodes')
 
-.help= t('nodes.index_help')
+- if can? :create, Node
+  .help= t('nodes.index_help')
 
-= btn_to t('nodes.new'), new_node_path
+  = btn_to t('nodes.new'), new_node_path
 
