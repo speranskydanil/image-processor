@@ -1,5 +1,5 @@
 role = Role.create name: 'admin', right_ids: Right.instances.map(&:id)
-User.create email: 'admin@company.com', password: 'password', roles: [role]
+User.create email: 'admin@company.com', password: 'adminpassword', roles: [role]
 
 NodeStatus.create name: 'just created'
 NodeStatus.create name: 'uploading pages'

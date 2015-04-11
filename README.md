@@ -25,7 +25,7 @@ It is a simple rails application for processing image collections.
 * bin/rebuild -e p
 * rails server
 
-Default login and password (seeds.rb): name@company.com passwordexample
+Default login and password (seeds.rb): admin@company.com adminpassword
 
 ## Rebuilding
 
