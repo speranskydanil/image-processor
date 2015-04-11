@@ -24,8 +24,8 @@
 
 <p>It is a simple rails application for processing image collections.</p>
 
-<h3>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h3>
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
 <li>authorization, managing users</li>
@@ -38,28 +38,29 @@
 <li>nice interface for viewing and processing image collections</li>
 </ul>
 
-<h3>
-<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <ul>
 <li>MySQL</li>
 <li>ImageMagick</li>
 </ul>
 
-<h3>
-<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Start</h3>
+<h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Start</h2>
 
 <ul>
-<li>git clone <a href="mailto:git@github.com">git@github.com</a>:speranskydanil/image-processor.git</li>
+<li>git clone <a href="https://github.com/speranskydanil/image-processor.git">https://github.com/speranskydanil/image-processor.git</a>
+</li>
 <li>cp config/database.example.yml config/database.yml; vim config/database.yml</li>
 <li>bin/rebuild -e p</li>
 <li>rails server</li>
 </ul>
 
-<p>Default login and password (seeds.rb): <a href="mailto:name@company.com">name@company.com</a> passwordexample</p>
+<p>Default login and password (seeds.rb): <a href="mailto:admin@company.com">admin@company.com</a> adminpassword</p>
 
-<h3>
-<a id="rebuilding" class="anchor" href="#rebuilding" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rebuilding</h3>
+<h2>
+<a id="rebuilding" class="anchor" href="#rebuilding" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rebuilding</h2>
 
 <pre><code>bin/rebuild -h
 
@@ -74,15 +75,15 @@ Usage: bin/rebuild [options]
                      m - bundle exec rake db:schema:load
                      s - bundle exec rake db:seed
                      p - RAILS_ENV=production bundle exec rake assets:precompile
-                     j - [ -e bin/delayed_job ] &amp;&amp; bin/delayed_job restart
+                     j - [ -e bin/delayed_job ] &amp;&amp; RAILS_ENV=production bin/delayed_job restart
                      Example: dcms
 
 -e, --except E       Except flags for the rebuild script
                      See documentation for --flags
 </code></pre>
 
-<h3>
-<a id="updating" class="anchor" href="#updating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Updating</h3>
+<h2>
+<a id="updating" class="anchor" href="#updating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Updating</h2>
 
 <pre><code>bin/update -h
 
@@ -95,21 +96,21 @@ Usage: bin/update [options]
                      b - bundle install
                      m - bundle exec rake db:migrate
                      p - RAILS_ENV=production bundle exec rake assets:precompile
-                     j - [ -e bin/delayed_job ] &amp;&amp; bin/delayed_job restart
+                     j - [ -e bin/delayed_job ] &amp;&amp; RAILS_ENV=production bin/delayed_job restart
                      Example: gm
 
 -e, --except E       Except flags for the update script
                      See documentation for --flags
 </code></pre>
 
-<h3>
-<a id="add-test-data" class="anchor" href="#add-test-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add Test Data</h3>
+<h2>
+<a id="add-test-data" class="anchor" href="#add-test-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add Test Data</h2>
 
 <pre><code>rake atd[path] # where path -- path to a directory with images
 </code></pre>
 
-<h3>
-<a id="screens" class="anchor" href="#screens" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screens</h3>
+<h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshots</h2>
 
 <p><img src="https://raw.github.com/speranskydanil/image-processor/master/screens/1.png" alt="screen"></p>
 
